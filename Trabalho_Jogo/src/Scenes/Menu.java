@@ -30,7 +30,7 @@ public class Menu {
         SetMenu();
     }
 
-    public void SetMenu() {
+    private void SetMenu() {
 
         // Adiciona padding (margem interior) no painel de 15px
         gridMenu.setStyle("-fx-padding: 15; -fx-maring: 30");
