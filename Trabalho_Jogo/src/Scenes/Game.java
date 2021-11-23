@@ -70,8 +70,7 @@ public class Game {
         vsRow.setAlignment(Pos.TOP_CENTER);
 
         // Titulo_________________________________________________________
-        Text title = new Text();
-        title.setText("Quem sera o Jogador 1?");
+        Text title = new Text("Quem vai ser o Jogador 1?");
         title.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
 
         // Nome_______________________________________________________
@@ -154,7 +153,7 @@ public class Game {
                     txtNickname.setText("");
                     txtPhone.setText("");
                     txtEmail.setText("");
-                    title.setText("Quem sera o Jogador 2?");
+                    title.setText("Quem vai ser o Jogador 2?");
                 }
             }
         });
