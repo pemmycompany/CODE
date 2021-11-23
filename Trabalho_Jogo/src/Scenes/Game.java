@@ -1,3 +1,4 @@
+package Scenes;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,13 +19,14 @@ public class Game {
     VBox gridGame = new VBox();
     public Scene scene = new Scene(gridGame, 500, 300);
 
-    public Button Return = new Button("Voltar ao menu principal");
+    public Button btnReturn = new Button("Voltar ao menu principal");
 
     public Game(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        SetGame();
     }
 
-    void SetGame() {
+    public void SetGame() {
         // Adiciona padding (margem interior) no painel de 15px
         gridGame.setStyle("-fx-padding: 15;");
         gridGame.setAlignment(Pos.CENTER);
@@ -34,6 +36,6 @@ public class Game {
         title.setText("O jogo aqui");
 
         // Adiciona todos os controles ao Grid
-        gridGame.getChildren().addAll(title, Return);
+        gridGame.getChildren().addAll(title, btnReturn);
     }
 }
