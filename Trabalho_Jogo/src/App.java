@@ -28,12 +28,13 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Cria um novo grid
         VBox gridGame = new VBox();
-        // Criando a classe
+        // Instanciando as Cenas principais
         menu = new Menu(primaryStage);
         game = new Game(primaryStage);
         tutorial = new Tutorial(primaryStage);
         about = new About(primaryStage);
 
+        // Atribuindo função aos botões do Menu
         setButtons(primaryStage);
 
         // Define um título para o menu
@@ -44,7 +45,6 @@ public class App extends Application {
     }
 
     void setButtons(Stage primaryStage) {
-        // Atribui função para acessar os botões//
         menu.btnStart.setOnAction(e -> primaryStage.setScene(game.scene));
         game.btnReturn.setOnAction(e -> primaryStage.setScene(menu.scene));
         menu.btnTutorial.setOnAction(e -> primaryStage.setScene(tutorial.scene));

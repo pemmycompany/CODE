@@ -19,7 +19,6 @@ public class Tutorial {
     Stage primaryStage;
     VBox gridTutorial = new VBox();
     public Scene scene = new Scene(gridTutorial, 500, 300);
-
     public Button btnReturn = new Button("Voltar ao menu principal");
 
     public Tutorial(Stage primaryStage) {
@@ -27,7 +26,7 @@ public class Tutorial {
         SetTutorial();
     }
 
-    public void SetTutorial() {
+    private void SetTutorial() {
         // Adiciona padding (margem interior) no painel de 15px
         gridTutorial.setStyle("-fx-padding: 15;");
         gridTutorial.setAlignment(Pos.CENTER);

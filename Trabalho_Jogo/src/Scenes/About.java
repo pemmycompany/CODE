@@ -18,7 +18,6 @@ public class About {
     Stage primaryStage;
     VBox gridAbout = new VBox();
     public Scene scene = new Scene(gridAbout, 500, 300);
-
     public Button btnReturn = new Button("Voltar ao menu principal");
 
     public About(Stage primaryStage) {
@@ -26,7 +25,7 @@ public class About {
         SetAbout();
     }
 
-    public void SetAbout() {
+    private void SetAbout() {
             // Adiciona padding (margem interior) no painel de 15px
             gridAbout.setStyle("-fx-padding: 15;");
             gridAbout.setAlignment(Pos.CENTER);
