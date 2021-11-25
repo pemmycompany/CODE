@@ -1,4 +1,5 @@
 package Scenes;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +20,7 @@ public class Menu {
 
     Stage primaryStage;
     VBox gridMenu = new VBox();
-    public Scene scene = new Scene(gridMenu, 500, 300);
+    public Scene scene = new Scene(gridMenu, 800, 600);
     //Criando botões para navegação no menu//
     public Button btnStart = new Button("Novo Jogo");
     public Button btnAbout = new Button("Sobre");

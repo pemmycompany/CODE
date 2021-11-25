@@ -1,27 +1,19 @@
 package Scenes;
 
-import java.awt.Color;
+import java.util.ArrayList;
 
-import javax.swing.GrayFilter;
 
-import Components.Player;
-import javafx.application.Application;
+import Components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
@@ -31,15 +23,30 @@ public class Game {
     // Criando um estágio
     Stage primaryStage;
     VBox gridGame = new VBox(5);
-    public Scene scene = new Scene(gridGame, 500, 400);
+    public Scene scene = new Scene(gridGame, 800, 600);
     public Button btnReturn = new Button("Voltar");
 
-    Player Player_01;
-    Player Player_02;
+    User User_01;
+    User User_02;
+
+    ArrayList<Player> Players = new ArrayList<Player>();
 
     public Game(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        scene.getStylesheets().addAll(this.getClass().getResource("/Assets/Styles/style.css").toExternalForm());
         SetGame();
+
+        Player VanishMan = new Player("VanishMan", new String[] { "Invisibilidade", "Super Visão", "Lentidão" }, true,
+                100.0f);
+        Player DeterGente = new Player("DeterGente", new String[] { "Detêm qualquer gente",
+                "Perde mais vida ao errar consecutivamente ", "Pode retirar uma alternativa" }, true, 105.0f);
+        Player Lysoform = new Player("Lysoform",
+                new String[] { "Agilidade", "Ganha 2 de vida a cada acerto", "perde 2.5 de vida a cada erro" }, true,
+                100.0f);
+        Player MrMusculo = new Player("MrMúsculo", new String[] { "Super Força", "Remove toda a Gordura", "Barato" },
+                true, 150.0f);
+        Player PinhoSol = new Player("PinhoSol", new String[] { "Radiante", "Sanitário", "Retarda qualquer inseto" },
+                true, 100.0f);
     }
 
     private void SetGame() {
@@ -72,6 +79,8 @@ public class Game {
         // Titulo_________________________________________________________
         Text title = new Text("Quem vai ser o Jogador 1?");
         title.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
+
+        title.setText("Jogador 1, selecione seu Personagem...");
 
         // Nome_______________________________________________________
         Label lblName = new Label("Nome");
@@ -125,12 +134,14 @@ public class Game {
         btnRow.setSpacing(10);
 
         // Adiciona todos os controles ao Grid
-        gridGame.getChildren().addAll(vsRow, title, nameRow, txtName, nickRow, txtNickname, phoneRow, txtPhone, emailRow,
-                txtEmail, btnRow);
+        gridGame.getChildren().addAll(vsRow, title, nameRow, txtName, nickRow, txtNickname, phoneRow, txtPhone,
+                emailRow, txtEmail, btnRow);
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                boolean selectPlayer = false;
+
                 if (!lblError.getText().isEmpty()) {
                     gridGame.getChildren().remove(lblError);
                 }
@@ -141,57 +152,112 @@ public class Game {
                     gridGame.getChildren().add(10, lblError);
                     return;
                 } else {
-                    if(Player_01 == null){
-                        Player_01 = new Player(txtName.getText(), txtNickname.getText(), txtPhone.getText(), txtEmail.getText());
+                    if (User_01 == null) {
+                        User_01 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
+                                txtEmail.getText());
                         lblP1.setText(txtNickname.getText());
-                    }
-                    else{
-                        Player_02 = new Player(txtName.getText(), txtNickname.getText(), txtPhone.getText(), txtEmail.getText());
+                    } else {
+                        User_02 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
+                                txtEmail.getText());
                         lblP2.setText(txtNickname.getText());
+
+                        selectPlayer = true;
                     }
                     txtName.setText("");
                     txtNickname.setText("");
                     txtPhone.setText("");
                     txtEmail.setText("");
                     title.setText("Quem vai ser o Jogador 2?");
+
+                    if (selectPlayer) {
+                        gridGame.getChildren().removeAll(nameRow, txtName, nickRow, txtNickname, phoneRow, txtPhone,
+                                emailRow, txtEmail, btnRow);
+
+                    
+                        // VanishMan_____________________
+                        Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/VanishMan.jpg").toString());
+                        ImageView vanishMan = new ImageView(vanishManIMG);
+                        vanishMan.setFitWidth(100);
+                        vanishMan.setPreserveRatio(true);
+                        vanishMan.setSmooth(true);
+                        vanishMan.setCache(true);
+                        vanishMan.setStyle("-fx-padding: 10;" + "-fx-border-style: solid outside;"
+                                + "-fx-border-width: 2;" + "-fx-border-insets: 5;" + "-fx-border-radius: 5;"
+                                + "-fx-border-color: blue;");
+
+                        // DeterGente_____________________
+                        Image DeterGentIMG = new Image(getClass().getResource("/Assets/IMG/DeterGente.jpg").toString());
+                        ImageView DeterGente = new ImageView(DeterGentIMG);
+                        DeterGente.setFitWidth(100);
+                        DeterGente.setPreserveRatio(true);
+                        DeterGente.setSmooth(true);
+                        DeterGente.setCache(true);
+
+                        // LysoForm_____________________
+                        Image LysoFormIMG = new Image(getClass().getResource("/Assets/IMG/Lysoform.jpg").toString());
+                        ImageView LysoForm = new ImageView(LysoFormIMG);
+                        LysoForm.setFitWidth(100);
+                        LysoForm.setPreserveRatio(true);
+                        LysoForm.setSmooth(true);
+                        LysoForm.setCache(true);
+
+                        // MrMusculo_____________________
+                        Image MrMusculoIMG = new Image(getClass().getResource("/Assets/IMG/MrMusculo.jpg").toString());
+                        ImageView MrMusculo = new ImageView(MrMusculoIMG);
+                        MrMusculo.setFitWidth(100);
+                        MrMusculo.setPreserveRatio(true);
+                        MrMusculo.setSmooth(true);
+                        MrMusculo.setCache(true);
+
+                        // PinhoSol_____________________
+                        Image PinhoSolIMG = new Image(getClass().getResource("/Assets/IMG/PinhoSol.jpg").toString());
+                        ImageView PinhoSol = new ImageView(PinhoSolIMG);
+                        PinhoSol.setFitWidth(100);
+                        PinhoSol.setPreserveRatio(true);
+                        PinhoSol.setSmooth(true);
+                        PinhoSol.setCache(true);
+
+                        //Colocando a imagem horizontalmente da linha 1
+                        HBox row1 = new HBox();
+                        row1.setSpacing(10);
+                        row1.setAlignment(Pos.CENTER);
+                        row1.getChildren().addAll(vanishMan, DeterGente,LysoForm);
+
+                        //Colocando a imagem horizontalmente da linha 2
+                        HBox row2 = new HBox(); 
+                        row2.setSpacing(10);
+                        row2.setAlignment(Pos.CENTER);
+                        row2.getChildren().addAll(MrMusculo, PinhoSol);
+
+                        HBox panels = new HBox();
+                        VBox sideMenu = new VBox();
+                        VBox images = new VBox();
+
+                        Label lblPlayerName = new Label("Nome: VanishMan");
+                        lblPlayerName.setFont(Font.font("Calibri", 15));
+
+                        Label lblSkills = new Label("Habilidades: Limpar");
+                        lblSkills.setFont(Font.font("Calibri", 15));
+
+                        Label lblHealth = new Label("Vida: 100");
+                        lblHealth.setFont(Font.font("Calibri", 15));
+
+                        sideMenu.getChildren().addAll(lblPlayerName, lblSkills, lblHealth);
+                        sideMenu.setSpacing(10);
+                        sideMenu.setAlignment(Pos.CENTER);
+                        sideMenu.setStyle("-fx-background-color: rgb(195, 195, 195); -fx-padding: 70;");
+
+                        images.getChildren().addAll(row1, row2);
+
+                        panels.getChildren().addAll(sideMenu, images);
+                        panels.setSpacing(10);
+                        panels.setAlignment(Pos.CENTER);
+
+                        gridGame.getChildren().addAll(panels);
+
+                    }
                 }
             }
         });
     }
-
-    /*
-     * Text text = new Text();
-     * 
-     * text.setText("Welcome to Portal"); text.setFont(Font.font("Calibri",
-     * FontWeight.BOLD, FontPosture.REGULAR, 20));
-     * primaryStage.setTitle("JavaFX Login"); Label name = new Label("UserName2");
-     * Label pass = new Label("Password"); TextField tf1 = new TextField();
-     * PasswordField tf2 = new PasswordField(); Button Submit = new
-     * Button("Submit");
-     * 
-     * root.addRow(1, text); root.setVgap(10); root.addRow(2, name, tf1);
-     * root.setVgap(10); root.addRow(3, pass, tf2); root.setVgap(10); root.addRow(4,
-     * Submit); root.setVgap(10);
-     * 
-     * 
-     * primaryStage.setScene(scene); primaryStage.show();
-     * 
-     * 
-     * // Button Events and Menu events here String s[]= new String[1]; Text t = new
-     * Text();
-     * 
-     * Submit.setOnAction(new EventHandler<ActionEvent>() {
-     * 
-     * @Override public void handle(ActionEvent event) {
-     * 
-     * if (tf1.getText().isEmpty()) { if (t.getText().isEmpty() == false) {
-     * root.getChildren().remove(t); }
-     * t.setText("Form Error! Please enter your name"); root.addRow(5, t); return; }
-     * if (tf2.getText().isEmpty()) { if (t.getText().isEmpty() == false) {
-     * root.getChildren().remove(t); }
-     * t.setText("Form Error! Please enter your password"); root.addRow(6, t);
-     * return; } if (t.getText().isEmpty() == false) { root.getChildren().remove(t);
-     * } t.setText("Registration Successful!" + " Welcome " + tf1.getText());
-     * root.addRow(7, t); } });
-     */
 }

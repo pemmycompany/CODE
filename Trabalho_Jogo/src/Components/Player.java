@@ -3,14 +3,14 @@ package Components;
 public class Player {
 
     String name;
-    String nickName;
-    String phone;
-    String email;
+    String[] skills;
+    boolean status;
+    float health;
 
-    public Player(String name, String nickName, String phone, String email) {
+    public Player(String name, String[] skills, boolean status, float health) {
         this.name = name;
-        this.nickName = nickName;
-        this.phone = phone;
-        this.email = email;
+        this.skills = skills;
+        this.status = status;
+        this.health = health;
     }
 }
