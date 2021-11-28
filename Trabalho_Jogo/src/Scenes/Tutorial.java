@@ -1,5 +1,7 @@
 package Scenes;
 
+import java.nio.file.Paths;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.text.Text;
 import javafx.geometry.Pos;
 
@@ -20,6 +25,8 @@ public class Tutorial {
     VBox gridTutorial = new VBox();
     public Scene scene = new Scene(gridTutorial, 500, 300);
     public Button btnReturn = new Button("Voltar ao menu principal");
+
+    public MediaPlayer media;
 
     public Tutorial(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -37,6 +44,14 @@ public class Tutorial {
         // Adiciona todos os controles ao Grid
         gridTutorial.getChildren().addAll(title, btnReturn);
 
-    }
+        String sound = "Assets/Music/tutorialmusic.wav";
+        Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
+        media = new MediaPlayer(MenuMusic);
 
+        media.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                media.seek(Duration.ZERO);
+            }
+        });
+    }
 }

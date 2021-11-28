@@ -1,5 +1,6 @@
 package Scenes;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -14,7 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,6 +34,8 @@ public class Game {
     User User_02;
 
     ArrayList<Player> Players = new ArrayList<Player>();
+
+    public MediaPlayer media;
 
     public Game(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -59,6 +65,16 @@ public class Game {
     }
 
     private void SetPlayersRegister() {
+
+        String sound = "Assets/Music/gamemusic.wav";
+        Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
+        media = new MediaPlayer(MenuMusic);
+        
+        media.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                media.seek(Duration.ZERO);
+            }
+        });
 
         // Jogador 1 vs Jogador 2_______________________________________________________
         Label lblP1 = new Label("Jogador_1");

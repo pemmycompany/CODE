@@ -8,7 +8,15 @@
         "c:\\JFX\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
         "c:\\JFX\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
         "c:\\JFX\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
-        "c:\\JFX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar"
+        "c:\\JFX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.controls.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.graphics.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
+        "c:\\Users\\elias\\Documents\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar"
     ],
     "files.autoGuessEncoding": true
 }
