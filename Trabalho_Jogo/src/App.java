@@ -1,5 +1,9 @@
 import Scenes.Game;
 import Scenes.Menu;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
+import java.nio.file.Paths;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -26,6 +30,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        music();
+
         // Cria um novo grid
         VBox gridGame = new VBox();
         // Instanciando as Cenas principais
@@ -43,6 +49,15 @@ public class App extends Application {
         primaryStage.setScene(menu.scene);
         primaryStage.show();
     }
+
+    MediaPlayer mediaPlayer;
+    public void music(){
+        String sound = "src/Assets/Music/freshing-your-eye-1789.mp3";
+        Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
+        mediaPlayer = new MediaPlayer(MenuMusic);
+        mediaPlayer.play();
+    }
+
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> primaryStage.setScene(game.scene));

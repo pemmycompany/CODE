@@ -17,7 +17,7 @@ import javafx.geometry.Pos;
 public class About {
     Stage primaryStage;
     VBox gridAbout = new VBox();
-    public Scene scene = new Scene(gridAbout, 500, 300);
+    public Scene scene = new Scene(gridAbout, 800, 600);
     public Button btnReturn = new Button("Voltar ao menu principal");
 
     public About(Stage primaryStage) {
