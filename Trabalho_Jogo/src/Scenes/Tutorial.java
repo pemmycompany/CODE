@@ -23,7 +23,7 @@ public class Tutorial {
     // Criando um estágio
     Stage primaryStage;
     VBox gridTutorial = new VBox();
-    public Scene scene = new Scene(gridTutorial, 500, 300);
+    public Scene scene = new Scene(gridTutorial, 800, 600);
     public Button btnReturn = new Button("Voltar ao menu principal");
 
     public MediaPlayer media;
@@ -44,7 +44,7 @@ public class Tutorial {
         // Adiciona todos os controles ao Grid
         gridTutorial.getChildren().addAll(title, btnReturn);
 
-        String sound = "Assets/Music/tutorialmusic.wav";
+        String sound = "Assets/Music/Tutorial.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
         media = new MediaPlayer(MenuMusic);
 
