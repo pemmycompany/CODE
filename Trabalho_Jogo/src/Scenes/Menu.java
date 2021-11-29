@@ -3,8 +3,14 @@ package Scenes;
 import java.nio.file.Paths;
 
 import Components.User;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +20,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.Scene;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.media.Media;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -35,8 +44,7 @@ public class Menu {
     public static void SetUser(int number, User user) {
         if (number == 1) {
             user_01 = user;
-        }
-        else{
+        } else {
             user_02 = user;
         }
     }
@@ -44,8 +52,7 @@ public class Menu {
     public static User GetUser(int number) {
         if (number == 1) {
             return user_01;
-        }
-        else{
+        } else {
             return user_02;
         }
     }
@@ -69,6 +76,7 @@ public class Menu {
     public Button btnAbout = new Button("Sobre");
     public Button btnTutorial = new Button("Como Jogar");
     public Button btnQuit = new Button("Encerrar");
+    public Button btnegg = new Button("?");
 
     public MediaPlayer media;
 
@@ -78,6 +86,86 @@ public class Menu {
     }
 
     private void SetMenu() {
+
+        Circle circle = new Circle();
+        circle.setFill(Color.BLACK);
+        circle.setRadius(8);
+
+        final Duration SEC_2 = Duration.millis(2000);
+        final Duration SEC_3 = Duration.millis(2000);
+
+        FadeTransition ft = new FadeTransition(SEC_3);
+        ft.setFromValue(1.0f);
+        ft.setToValue(0.3f);
+        ft.setCycleCount(2);
+        ft.setAutoReverse(true);
+
+        TranslateTransition transition = new TranslateTransition(SEC_2);
+        transition.setDuration(Duration.seconds(1));
+        transition.setFromX(-100f);
+        transition.setToX(100);
+        transition.setCycleCount(Animation.INDEFINITE);
+        transition.setNode(circle);
+        transition.play();
+
+        RotateTransition rt = new RotateTransition(SEC_3);
+        rt.setByAngle(-100f);
+        rt.setCycleCount(1);
+
+        ScaleTransition st = new ScaleTransition(SEC_2);
+        st.setByX(1.5f);
+        st.setByY(1.5f);
+        st.setCycleCount(1);
+
+        Circle circle2 = new Circle(200);
+        circle2.setFill(Color.WHITE);
+        circle2.setLayoutX(0);
+        circle2.setLayoutY(-100);
+
+        PathTransition pl = new PathTransition();
+        pl.setNode(circle);
+        pl.setPath(circle2);
+        pl.setDuration(Duration.seconds(1));
+        pl.setCycleCount(Animation.INDEFINITE);
+        pl.play();
+
+        // Retangulo
+        Rectangle rectangle = new Rectangle(250,210);
+        rectangle.setLayoutX(-115);
+        rectangle.setLayoutY(-210);
+        final Duration SEC_4 = Duration.millis(2000);
+        final Duration SEC_5 = Duration.millis(2000);
+
+        FadeTransition ft2 = new FadeTransition(SEC_5);
+        ft2.setFromValue(1.0f);
+        ft2.setToValue(0.3f);
+        ft2.setCycleCount(2);
+        ft2.setAutoReverse(true);
+
+        TranslateTransition transition3 = new TranslateTransition(SEC_4);
+        transition3.setDuration(Duration.seconds(5));
+        transition3.setFromX(-100f);
+        transition3.setToX(100);
+        transition3.setCycleCount(Animation.INDEFINITE);
+        transition3.setNode(btnegg);
+        transition3.play();
+
+        RotateTransition rt2 = new RotateTransition(SEC_5);
+        rt2.setByAngle(-100f);
+        rt2.setCycleCount(1);
+
+        ScaleTransition st2 = new ScaleTransition(SEC_4);
+        st2.setByX(1.5f);
+        st2.setByY(1.5f);
+        st2.setCycleCount(1);
+
+        PathTransition pl2 = new PathTransition();
+        pl2.setNode(btnegg);
+        pl2.setPath(rectangle);
+        pl2.setDuration(Duration.seconds(8));
+        pl2.setCycleCount(Animation.INDEFINITE);
+        pl2.play();
+
 
         // Adiciona padding (margem interior) no painel de 15px
         gridMenu.setStyle("-fx-padding: 15; -fx-maring: 30;");
@@ -107,7 +195,7 @@ public class Menu {
         btnQuit.setPrefWidth(100);
 
         // Adiciona todos os controles ao Grid
-        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit);
+        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit, circle, btnegg);
 
         String sound = "Assets/Music/Menu.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());

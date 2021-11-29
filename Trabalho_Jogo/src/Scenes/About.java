@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.geometry.Pos;
@@ -26,6 +27,9 @@ public class About {
     }
 
     private void SetAbout() {
+
+
+
             // Adiciona padding (margem interior) no painel de 15px
             gridAbout.setStyle("-fx-padding: 15;");
             gridAbout.setAlignment(Pos.CENTER);
