@@ -13,4 +13,9 @@ public class Player {
         this.status = status;
         this.health = health;
     }
+
+    public String getName(){return name;}
+    public String[] getSkills(){return skills;}
+    public boolean getStatus(){return status;}
+    public float getHealth(){return health;}
 }

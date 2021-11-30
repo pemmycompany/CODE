@@ -1,0 +1,16 @@
+.playerIMG{
+    fx-padding: 10;
+    -fx-border-color: gray;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}
+
+.playerIMG:hover{
+    -fx-border-color: blue;
+}
+
+.fieldLabel{
+    -fx-font-weight: bold;
+    -fx-text-fill: blue;
+}

@@ -60,7 +60,7 @@ public class App extends Application {
         // Iniciar - define a primeira Cena e a exibe
         primaryStage.setScene(menu.scene);
         primaryStage.show();
-        menu.media.seek(Duration.millis(10000));
+        menu.media.setStartTime(Duration.seconds(3));
         menu.media.play();
     }
 

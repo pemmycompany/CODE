@@ -116,6 +116,7 @@ public class Menu {
         media.setOnEndOfMedia(new Runnable() {
             public void run() {
                 media.seek(Duration.ZERO);
+                media.play();
             }
         });
 
