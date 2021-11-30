@@ -3,6 +3,7 @@ package Scenes;
 import java.nio.file.Paths;
 
 import Components.User;
+import Scenes.MenuAnimation;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.Scene;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.media.Media;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -71,9 +73,13 @@ public class Menu {
     public Button btnQuit = new Button("Encerrar");
 
     public MediaPlayer media;
+    private MenuAnimation menuAnimation;
+    
 
-    public Menu(Stage primaryStage) {
+    public Menu(Stage primaryStage, MenuAnimation menuAnimation) {
         this.primaryStage = primaryStage;
+        this.menuAnimation = menuAnimation;
+
         SetMenu();
     }
 
@@ -107,7 +113,7 @@ public class Menu {
         btnQuit.setPrefWidth(100);
 
         // Adiciona todos os controles ao Grid
-        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit);
+        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit, menuAnimation.btnEgg, menuAnimation.circle, menuAnimation.circle3);
 
         String sound = "Assets/Music/Menu.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());

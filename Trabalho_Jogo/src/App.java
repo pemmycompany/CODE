@@ -37,6 +37,7 @@ public class App extends Application {
     About about;
     CreateUser createUser;
     SelectPlayer selectPlayer;
+    MenuAnimation animation;
 
 
 
@@ -45,10 +46,13 @@ public class App extends Application {
         // Cria um novo grid
         VBox gridGame = new VBox();
         // Instanciando as Cenas principais
-        menu = new Menu(primaryStage);
+        animation = new MenuAnimation(primaryStage);
+        menu = new Menu(primaryStage, animation);
         game = new Game(primaryStage);
         tutorial = new Tutorial(primaryStage);
         about = new About(primaryStage);
+        
+        
 
         selectPlayer = new SelectPlayer(primaryStage);
         createUser = new CreateUser(primaryStage, selectPlayer);
