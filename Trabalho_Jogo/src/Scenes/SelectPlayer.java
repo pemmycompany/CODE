@@ -219,12 +219,12 @@ public class SelectPlayer {
                         }
                 };
 
-                var hoverOut = new EventHandler<MouseEvent>() {
+                /* var hoverOut = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
                                 resetHoveredPlayer(((VBox) e.getTarget()).getId());
                         }
-                };
+                }; */
 
                 var onClick = new EventHandler<MouseEvent>() {
                         @Override
@@ -234,23 +234,23 @@ public class SelectPlayer {
                 };
 
                 vanishManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
+                //vanishManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
                 vanishManBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
 
                 deterGenteManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
+                //deterGenteManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
                 deterGenteManBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
 
                 lysoFormBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
+                //lysoFormBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
                 lysoFormBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
 
                 mrMusculoBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
+                //mrMusculoBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
                 mrMusculoBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
 
                 pinhoSolBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
+                //pinhoSolBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
                 pinhoSolBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
 
 
@@ -275,9 +275,13 @@ public class SelectPlayer {
                 lblHealth.setText(Float.toString(player.getHealth()));
         }
 
-        void resetHoveredPlayer(String _id) {
+        /* void resetHoveredPlayer(String _id) {
                 var id = Integer.parseInt(_id);
-        }
+                var player = Players.get(id);
+                lblPlayerName.setText("-");
+                lblSkills.setText("-");
+                lblHealth.setText("-");
+        } */
 
         void setSelectedPlayer(String _id) {
                 var id = Integer.parseInt(_id);
