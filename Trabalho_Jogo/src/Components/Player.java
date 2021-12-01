@@ -18,4 +18,6 @@ public class Player {
     public String[] getSkills(){return skills;}
     public boolean getStatus(){return status;}
     public float getHealth(){return health;}
+
+    public void setStatus(boolean value){status = value;}
 }

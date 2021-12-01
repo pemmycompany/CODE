@@ -14,3 +14,11 @@
     -fx-font-weight: bold;
     -fx-text-fill: blue;
 }
+
+.selectedIMG{
+    fx-padding: 10;
+    -fx-border-color: red;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}

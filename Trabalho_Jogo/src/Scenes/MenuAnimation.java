@@ -60,11 +60,11 @@ public class MenuAnimation {
         final Duration SecondsOne = Duration.millis(2000);
         final Duration SecondsTwo = Duration.millis(2000);
 
-        FadeTransition ft = new FadeTransition(SecondsTwo);
-        ft.setFromValue(1.0f);
-        ft.setToValue(0.3f);
-        ft.setCycleCount(2);
-        // ft.setAutoReverse(true);
+        FadeTransition fadeTrans = new FadeTransition(SecondsTwo);
+        fadeTrans.setFromValue(1.0f);
+        fadeTrans.setToValue(0.3f);
+        fadeTrans.setCycleCount(2);
+        // fadeTrans.setAutoReverse(true);
 
         TranslateTransition transition = new TranslateTransition(SecondsOne);
         transition.setDuration(Duration.seconds(1));
@@ -73,27 +73,27 @@ public class MenuAnimation {
         transition.setCycleCount(Animation.INDEFINITE);
         transition.setNode(circle);
         transition.play();
-
-        RotateTransition rt = new RotateTransition(SecondsTwo);
-        rt.setByAngle(-100f);
-        rt.setCycleCount(2);
-
-        ScaleTransition st = new ScaleTransition(SecondsOne);
-        st.setByX(1.5f);
-        st.setByY(1.5f);
-        st.setCycleCount(2);
-
+        //Rotação do Circulo
+        RotateTransition rotTrans = new RotateTransition(SecondsTwo);
+        rotTrans.setByAngle(-100f);
+        rotTrans.setCycleCount(2);
+        //Tamanho da rotação do Circulo
+        ScaleTransition scalTrans = new ScaleTransition(SecondsOne);
+        scalTrans.setByX(1.5f);
+        scalTrans.setByY(1.5f);
+        scalTrans.setCycleCount(2);
+        
         Circle circle2 = new Circle(180);
         circle2.setFill(Color.WHITE);
         circle2.setLayoutX(0);
         circle2.setLayoutY(-100);
 
-        PathTransition pl = new PathTransition();
-        pl.setNode(circle);
-        pl.setPath(circle2);
-        pl.setDuration(Duration.seconds(1));
-        pl.setCycleCount(Animation.INDEFINITE);
-        pl.play();
+        PathTransition patTrans = new PathTransition();
+        patTrans.setNode(circle);
+        patTrans.setPath(circle2);
+        patTrans.setDuration(Duration.seconds(1));
+        patTrans.setCycleCount(Animation.INDEFINITE);
+        patTrans.play();
 
       
         //Circulo dois Branco
@@ -104,10 +104,10 @@ public class MenuAnimation {
         final Duration SecondsThree = Duration.millis(2000);
         final Duration SecondsFour = Duration.millis(2000);
 
-        FadeTransition ft3 = new FadeTransition(SecondsFour);
-        ft3.setFromValue(1.0f);
-        ft3.setToValue(0.3f);
-        ft3.setCycleCount(2);
+        FadeTransition fadeTrans3 = new FadeTransition(SecondsFour);
+        fadeTrans3.setFromValue(1.0f);
+        fadeTrans3.setToValue(0.3f);
+        fadeTrans3.setCycleCount(2);
         // ft3.setAutoReverse(true);
 
         TranslateTransition transition2 = new TranslateTransition(SecondsThree);
@@ -118,15 +118,15 @@ public class MenuAnimation {
         transition2.setNode(circle3);
         transition2.play();
 
-        RotateTransition rt3 = new RotateTransition(SecondsFour);
-        rt3.setByAngle(-100f);
-        rt3.setCycleCount(2);
-        rt3.setAutoReverse(true);
+        RotateTransition rotTrans3 = new RotateTransition(SecondsFour);
+        rotTrans3.setByAngle(-100f);
+        rotTrans3.setCycleCount(2);
+        rotTrans3.setAutoReverse(true);
 
-        ScaleTransition st3 = new ScaleTransition(SecondsThree);
-        st3.setByX(1.5f);
-        st3.setByY(1.5f);
-        st3.setCycleCount(2);
+        ScaleTransition scalTrans3 = new ScaleTransition(SecondsThree);
+        scalTrans3.setByX(1.5f);
+        scalTrans3.setByY(1.5f);
+        scalTrans3.setCycleCount(2);
 
         Circle circle4 = new Circle(180);
         circle4.setFill(Color.WHITE);
@@ -134,17 +134,17 @@ public class MenuAnimation {
         circle4.setLayoutY(-100);
         circle4.setNodeOrientation(null);
 
-        PathTransition pl3 = new PathTransition();
-        pl3.setNode(circle3);
-        pl3.setPath(circle4);
-        pl3.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pl3.setDuration(Duration.seconds(1));
-        pl3.setCycleCount(Animation.INDEFINITE);
-        pl3.play();
+        PathTransition patTrans3 = new PathTransition();
+        patTrans3.setNode(circle3);
+        patTrans3.setPath(circle4);
+        patTrans3.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        patTrans3.setDuration(Duration.seconds(1));
+        patTrans3.setCycleCount(Animation.INDEFINITE);
+        patTrans3.play();
 
 
 
-        // Retangulo
+        // Cria eixo em formato de Retangulo para o movimento do ícone do EasterEgg
         Rectangle rectangle = new Rectangle(250, 250);
         rectangle.setLayoutX(-115);
         rectangle.setLayoutY(-200);
@@ -152,11 +152,11 @@ public class MenuAnimation {
         final Duration SecondsFive = Duration.millis(2000);
         final Duration SecondsSix = Duration.millis(2000);
 
-        FadeTransition ft2 = new FadeTransition(SecondsSix);
-        ft2.setFromValue(1.0f);
-        ft2.setToValue(0.3f);
-        ft2.setCycleCount(2);
-        ft2.setAutoReverse(true);
+        FadeTransition fadeTrans2 = new FadeTransition(SecondsSix);
+        fadeTrans2.setFromValue(1.0f);
+        fadeTrans2.setToValue(0.3f);
+        fadeTrans2.setCycleCount(2);
+        fadeTrans2.setAutoReverse(true);
 
         TranslateTransition transition3 = new TranslateTransition(SecondsFive);
         transition3.setDuration(Duration.seconds(5));
@@ -166,21 +166,21 @@ public class MenuAnimation {
         transition3.setNode(btnEgg);
         transition3.play();
 
-        RotateTransition rt2 = new RotateTransition(SecondsSix);
-        rt2.setByAngle(-100f);
-        rt2.setCycleCount(1);
+        RotateTransition rotTrans2 = new RotateTransition(SecondsSix);
+        rotTrans2.setByAngle(-100f);
+        rotTrans2.setCycleCount(1);
 
-        ScaleTransition st2 = new ScaleTransition(SecondsFive);
-        st2.setByX(1.5f);
-        st2.setByY(1.5f);
-        st2.setCycleCount(1);
+        ScaleTransition scalTrans2 = new ScaleTransition(SecondsFive);
+        scalTrans2.setByX(1.5f);
+        scalTrans2.setByY(1.5f);
+        scalTrans2.setCycleCount(1);
 
-        PathTransition pl2 = new PathTransition();
-        pl2.setNode(btnEgg);
-        pl2.setPath(rectangle);
-        pl2.setDuration(Duration.seconds(8));
-        pl2.setCycleCount(Animation.INDEFINITE);
-        pl2.play(); 
+        PathTransition patTrans2 = new PathTransition();
+        patTrans2.setNode(btnEgg);
+        patTrans2.setPath(rectangle);
+        patTrans2.setDuration(Duration.seconds(8));
+        patTrans2.setCycleCount(Animation.INDEFINITE);
+        patTrans2.play(); 
 
 
     }

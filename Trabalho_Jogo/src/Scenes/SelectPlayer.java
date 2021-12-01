@@ -43,6 +43,8 @@ public class SelectPlayer {
         Player user01_Player;
         Player user02_Player;
 
+        int currentPlayer = 1;
+
         public SelectPlayer(Stage primaryStage) {
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
 
@@ -91,7 +93,7 @@ public class SelectPlayer {
                 playersRow.setAlignment(Pos.CENTER);
 
                 // VanishMan_____________________
-                Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/VanishMan.jpg").toString());
+                Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/Vanish.jpg").toString());
                 ImageView vanishMan = new ImageView(vanishManIMG);
                 vanishMan.setFitWidth(100);
                 vanishMan.setPreserveRatio(true);
@@ -186,7 +188,7 @@ public class SelectPlayer {
                 lblHealth.setFont(Font.font("Calibri", 15));
                 lblSkills.setWrapText(true);
 
-                sideMenu.getChildren().addAll(nameLabel, lblPlayerName,skillsLabel, lblSkills,healthLabel, lblHealth);
+                sideMenu.getChildren().addAll(nameLabel, lblPlayerName, skillsLabel, lblSkills, healthLabel, lblHealth);
                 sideMenu.setSpacing(10);
                 sideMenu.setAlignment(Pos.CENTER_LEFT);
                 sideMenu.setStyle("-fx-background-color: rgb(195, 195, 195); -fx-padding: 70;");
@@ -215,45 +217,44 @@ public class SelectPlayer {
                 var hoverOn = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setHoveredPlayer(((VBox) e.getTarget()).getId());
+                                setHoveredPlayer(((VBox)e.getTarget()));
                         }
                 };
 
                 var hoverOut = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                resetHoveredPlayer(((VBox) e.getTarget()).getId());
+                                resetHoveredPlayer(((VBox)e.getTarget()).getId());
                         }
                 };
 
                 var onClick = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setSelectedPlayer(((VBox) e.getTarget()).getId());
+                                setSelectedPlayer(((VBox)e.getTarget()));
+                                currentPlayer = 2;
                         }
                 };
 
                 vanishManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
+                vanishManBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                vanishManBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
                 deterGenteManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
+                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
                 lysoFormBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
+                lysoFormBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                lysoFormBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
                 mrMusculoBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
+                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
                 pinhoSolBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_EXITED,hoverOut);
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_CLICKED,onClick);
-
-
+                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
         }
 
@@ -262,16 +263,20 @@ public class SelectPlayer {
                 lblP2.setText(Menu.GetUser(2).getName());
         }
 
-        void setHoveredPlayer(String _id) {
-                var id = Integer.parseInt(_id);
+        void setHoveredPlayer(VBox hovered) {
+                var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
+
+                if (hovered.getStyleClass().contains("selectedIMG")) {
+                        return;
+                }
 
                 lblPlayerName.setText(player.getName());
                 String skills = "";
                 for (String skill : player.getSkills()) {
                         skills += skill + ", ";
                 }
-                lblSkills.setText(skills.substring(0,skills.length() - 2) + ".");
+                lblSkills.setText(skills.substring(0, skills.length() - 2) + ".");
                 lblHealth.setText(Float.toString(player.getHealth()));
         }
 
@@ -279,7 +284,22 @@ public class SelectPlayer {
                 var id = Integer.parseInt(_id);
         }
 
-        void setSelectedPlayer(String _id) {
-                var id = Integer.parseInt(_id);
+        void setSelectedPlayer(VBox hovered) {
+                var id = Integer.parseInt(hovered.getId());
+                var player = Players.get(id);
+
+                if (!player.getStatus())
+                        return;
+
+                player.setStatus(false);
+                hovered.getStyleClass().remove("playerIMG");
+                hovered.getStyleClass().add("selectedIMG");
+
+                if (currentPlayer == 1) {
+                        user01_Player = player;
+                } else {
+                        user02_Player = player;
+                        lblHealth.setText("1- " + user01_Player.getName() + ", 2- " + user02_Player);
+                }
         }
 }
