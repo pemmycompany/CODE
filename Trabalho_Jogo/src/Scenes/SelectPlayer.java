@@ -93,7 +93,7 @@ public class SelectPlayer {
                 playersRow.setAlignment(Pos.CENTER);
 
                 // VanishMan_____________________
-                Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/Vanish.jpg").toString());
+                Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/VanishMan.jpg").toString());
                 ImageView vanishMan = new ImageView(vanishManIMG);
                 vanishMan.setFitWidth(100);
                 vanishMan.setPreserveRatio(true);
@@ -217,21 +217,21 @@ public class SelectPlayer {
                 var hoverOn = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setHoveredPlayer(((VBox)e.getTarget()));
+                                setHoveredPlayer(((VBox) e.getTarget()));
                         }
                 };
 
                 var hoverOut = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                resetHoveredPlayer(((VBox)e.getTarget()).getId());
+                                resetHoveredPlayer(((VBox) e.getTarget()).getId());
                         }
                 };
 
                 var onClick = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setSelectedPlayer(((VBox)e.getTarget()));
+                                setSelectedPlayer(((VBox) e.getTarget()));
                                 currentPlayer = 2;
                         }
                 };
@@ -267,9 +267,11 @@ public class SelectPlayer {
                 var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
 
-                if (hovered.getStyleClass().contains("selectedIMG")) {
-                        return;
-                }
+                
+                 if (hovered.getStyleClass().contains("selectedIMG")) {
+                 return;
+                 }
+                
 
                 lblPlayerName.setText(player.getName());
                 String skills = "";

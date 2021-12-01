@@ -38,8 +38,7 @@ public class App extends Application {
     CreateUser createUser;
     SelectPlayer selectPlayer;
     MenuAnimation animation;
-
-
+    Easter_egg easter_egg;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -51,8 +50,6 @@ public class App extends Application {
         game = new Game(primaryStage);
         tutorial = new Tutorial(primaryStage);
         about = new About(primaryStage);
-        
-        
 
         selectPlayer = new SelectPlayer(primaryStage);
         createUser = new CreateUser(primaryStage, selectPlayer);
@@ -67,7 +64,6 @@ public class App extends Application {
         menu.media.setStartTime(Duration.seconds(3));
         menu.media.play();
     }
-
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
@@ -100,6 +96,11 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        try {
+            launch(args);
+        } catch (Exception ex) {
+            System.out.println("=============CAMINHO============");
+            //System.out.println(ex.getStackTrace());
+        }
     }
 }
