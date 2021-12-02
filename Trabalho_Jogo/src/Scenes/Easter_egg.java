@@ -45,11 +45,12 @@ import javafx.geometry.Pos;
 public class Easter_egg {
 
     Stage primaryStage;
-    VBox gridEaster_egg = new VBox(5);
+    VBox gridEaster_egg = new VBox();
     public Scene scene = new Scene(gridEaster_egg, 800, 600, Color.BLACK);
     public Button btnReturn = new Button("Voltar");
 
-    MediaView media;
+    MediaView mediaView;
+    public MediaPlayer media;
 
     public Easter_egg(Stage primarystage){
         this.primaryStage = primarystage;
@@ -59,22 +60,33 @@ public class Easter_egg {
     public void setEaster_egg(){
 
         // Adiciona padding (margem interior) no painel de 15px
-        gridTutorial.setStyle("-fx-padding: 15;");
-        gridTutorial.setAlignment(Pos.CENTER);
+        gridEaster_egg.setStyle("-fx-padding: 15;");
+        gridEaster_egg.setAlignment(Pos.CENTER);
 
+        // Adicionando video para o grid
         String path = "Assets/Video/Runbug.mp4";
-        Media media = new Media(new File(path).toURI().toString());
+        Media videoMedia = new Media(new File(path).toURI().toString());
         
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaPlayer eggPlay = new MediaPlayer(videoMedia);
 
-        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaView = new MediaView(eggPlay);
 
-        mediaPlayer.setCycleCount(mediaPlayer.INDEFINITE);
+        eggPlay.setCycleCount(MediaPlayer.INDEFINITE);
 
-        mediaPlayer.setAutoPlay(true);
+        eggPlay.setAutoPlay(true);
 
          // Adiciona todos os controles ao Grid
         gridEaster_egg.getChildren().addAll(mediaView, btnReturn);
+
+        String sound = "Assets/Music/Tutorial.wav";
+        Media eggmMedia = new Media(Paths.get(sound).toUri().toString());
+        media = new MediaPlayer(eggmMedia);
+
+        media.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                media.seek(Duration.ZERO);
+            }
+        });
 
         
 

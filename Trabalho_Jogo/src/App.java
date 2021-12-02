@@ -50,6 +50,7 @@ public class App extends Application {
         game = new Game(primaryStage);
         tutorial = new Tutorial(primaryStage);
         about = new About(primaryStage);
+        easter_egg = new Easter_egg(primaryStage);
 
         selectPlayer = new SelectPlayer(primaryStage);
         createUser = new CreateUser(primaryStage, selectPlayer);
@@ -92,15 +93,22 @@ public class App extends Application {
         createUser.btnReturn.setOnAction(e -> primaryStage.setScene(menu.scene));
         selectPlayer.btnReturn.setOnAction(e -> primaryStage.setScene(createUser.scene));
 
+        animation.btnEgg.setOnAction(e -> {
+            primaryStage.setScene(easter_egg.scene);
+            menu.media.stop();
+            easter_egg.media.play();
+        }); 
+        easter_egg.btnReturn.setOnAction(e -> {
+            primaryStage.setScene(menu.scene);
+            easter_egg.media.stop();
+            menu.media.play();
+            menu.media.seek(Duration.millis(3000));
+        });
+
         menu.btnQuit.setOnAction(e -> Platform.exit());
     }
 
     public static void main(String[] args) {
-        try {
-            launch(args);
-        } catch (Exception ex) {
-            System.out.println("=============CAMINHO============");
-            //System.out.println(ex.getStackTrace());
-        }
+        launch(args);
     }
 }
