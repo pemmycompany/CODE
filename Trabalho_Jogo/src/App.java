@@ -58,12 +58,12 @@ public class App extends Application {
         // Atribuindo função aos botões do Menu
         setButtons(primaryStage);
         // Define um título para o menu
-        primaryStage.setTitle("Jogo da UNA");
+        primaryStage.setTitle("Ultimate Una Quiz");
         // Iniciar - define a primeira Cena e a exibe
         primaryStage.setScene(menu.scene);
         primaryStage.show();
-        menu.media.setStartTime(Duration.seconds(3));
-        menu.media.play();
+        menu.mediamenu.setStartTime(Duration.seconds(3));
+        menu.mediamenu.play();
     }
 
     void setButtons(Stage primaryStage) {
@@ -74,35 +74,49 @@ public class App extends Application {
         game.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
             game.media.stop();
-            menu.media.play();
-            menu.media.seek(Duration.millis(3000));
+            menu.mediamenu.play();
+            menu.mediamenu.seek(Duration.millis(3000));
         });
         menu.btnTutorial.setOnAction(e -> {
             primaryStage.setScene(tutorial.scene);
-            menu.media.stop();
+            menu.mediamenu.stop();
             tutorial.media.play();
         });
         tutorial.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
             tutorial.media.stop();
-            menu.media.play();
-            menu.media.seek(Duration.millis(3000));
+            menu.mediamenu.play();
+            menu.mediamenu.seek(Duration.millis(3000));
         });
         menu.btnAbout.setOnAction(e -> primaryStage.setScene(about.scene));
         about.btnReturn.setOnAction(e -> primaryStage.setScene(menu.scene));
-        createUser.btnReturn.setOnAction(e -> primaryStage.setScene(menu.scene));
-        selectPlayer.btnReturn.setOnAction(e -> primaryStage.setScene(createUser.scene));
+        createUser.btnReturn.setOnAction(e -> {
+            primaryStage.setScene(menu.scene);
+            createUser.ResetForm();
+
+        });
+        selectPlayer.btnReturn.setOnAction(e -> {
+            primaryStage.setScene(createUser.scene);
+            selectPlayer.ResetForm();
+            createUser.ResetForm();
+        });
 
         animation.btnEgg.setOnAction(e -> {
             primaryStage.setScene(easter_egg.scene);
-            menu.media.stop();
+            menu.mediamenu.stop();
             easter_egg.media.play();
-        }); 
+        });
         easter_egg.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
             easter_egg.media.stop();
-            menu.media.play();
-            menu.media.seek(Duration.millis(3000));
+            menu.mediamenu.play();
+            menu.mediamenu.seek(Duration.millis(3000));
+        });
+
+        selectPlayer.btnStart.setOnAction(e -> {
+            primaryStage.setScene(game.scene);
+            menu.mediamenu.stop();
+            game.media.play();
         });
 
         menu.btnQuit.setOnAction(e -> Platform.exit());

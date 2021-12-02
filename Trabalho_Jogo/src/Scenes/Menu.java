@@ -72,7 +72,7 @@ public class Menu {
     public Button btnTutorial = new Button("Como Jogar");
     public Button btnQuit = new Button("Encerrar");
 
-    public MediaPlayer media;
+    public MediaPlayer mediamenu;
     private MenuAnimation menuAnimation;
     
 
@@ -98,10 +98,10 @@ public class Menu {
 
         Label title = new Label();
 
-        title.setStyle("-fx-font: 24 castellar; -fx-text-fill: white");
+        title.setStyle("-fx-font: 24 castellar; -fx-text-fill: yellow");
         title.setEffect(darkshadow);
         title.setCache(true);
-        title.setText("100 PERGUNTA");
+        title.setText("Ultimate Una Quiz");
         title.setFont(Font.font(null, FontWeight.BOLD, 32));
         title.setPadding(new Insets(15));
 
@@ -117,12 +117,12 @@ public class Menu {
 
         String sound = "Assets/Music/Menu.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
-        media = new MediaPlayer(MenuMusic);
+        mediamenu = new MediaPlayer(MenuMusic);
 
-        media.setOnEndOfMedia(new Runnable() {
+        mediamenu.setOnEndOfMedia(new Runnable() {
             public void run() {
-                media.seek(Duration.ZERO);
-                media.play();
+                mediamenu.seek(Duration.ZERO);
+                mediamenu.play();
             }
         });
 
@@ -140,7 +140,6 @@ public class Menu {
                     finishedFirst = false;
             }
 
-            primaryStage.setTitle(Integer.toString(G));
             pause.play();
         });
         pause.play();

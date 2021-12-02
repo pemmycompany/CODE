@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,22 +29,34 @@ public class SelectPlayer {
 
         Stage primaryStage;
         VBox gridGame = new VBox(5);
-        public Scene scene = new Scene(gridGame, 800, 600, Color.GRAY);
+        public Scene scene = new Scene(gridGame, 800, 600);
         public Button btnReturn = new Button("Voltar");
 
         ArrayList<Player> Players = new ArrayList<Player>();
 
         Label lblP1 = new Label("Jogador_1");
         Label lblP2 = new Label("Jogador_2");
+        Label lblSel1 = new Label("Personagem_1");
+        Label lblSel2 = new Label("Personagem_2");
+        Label lblSelectionTurn = new Label("Escolha o personagem do jogador 1");
 
         Label lblPlayerName = new Label("-");
         Label lblSkills = new Label("-");
         Label lblHealth = new Label("-");
+        HBox panels = new HBox();
+        VBox lastSelected;
 
-        Player user01_Player;
-        Player user02_Player;
+        public Button btnStart = new Button("Selecionar");
+        Button btnSubmit = new Button("Selecionar");
 
-        int currentPlayer = 1;
+        HBox row1 = new HBox();
+        HBox row2 = new HBox();
+        HBox btnRow = new HBox();
+
+        int user01_PlayerID;
+        int user02_PlayerID;
+
+        public int currentPlayer = 1;
 
         public SelectPlayer(Stage primaryStage) {
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
@@ -51,19 +64,20 @@ public class SelectPlayer {
                 this.primaryStage = primaryStage;
                 setPlayer();
 
-                Players.add(new Player("VanishMan", new String[] { "Invisibilidade", "Super Visão", "Lentidão" }, true,
+                Players.add(new Player("VanishMan", new String[] { "Invisibilidade", "Super Visao", "Lentidao" }, true,
                                 100.0f));
-                Players.add(new Player("DeterGente", new String[] { "Detêm qualquer gente",
+                Players.add(new Player("DeterGente & 'P'", new String[] { "Detêm qualquer gente",
                                 "Perde mais vida ao errar consecutivamente ", "Pode retirar uma alternativa" }, true,
                                 105.0f));
-                Players.add(new Player("Lysoform",
+                Players.add(new Player("Lysoformador",
                                 new String[] { "Agilidade", "Ganha 2 de vida a cada acerto",
                                                 "perde 2.5 de vida a cada erro" },
                                 true,
                                 100.0f));
-                Players.add(new Player("MrMúsculo", new String[] { "Super Força", "Remove toda a Gordura", "Barato" },
+                Players.add(new Player("MrMusculoso", new String[] { "Super Forte", "Remove toda a Gordura", "Barato" },
                                 true, 150.0f));
-                Players.add(new Player("PinhoSol", new String[] { "Radiante", "Sanitário", "Retarda qualquer inseto" },
+                Players.add(new Player("PinhoSolar",
+                                new String[] { "Radiante", "Sanitario", "Retarda qualquer inseto" },
                                 true, 100.0f));
         }
 
@@ -81,6 +95,14 @@ public class SelectPlayer {
                 lblP2.setFont(Font.font("Calibri", 25));
                 lblP2.setStyle("-fx-text-fill: rgb(183, 21, 21);");
 
+                lblSel1.setFont(Font.font("Calibri", 15));
+                lblSel1.setStyle("-fx-text-fill: rgb(175, 19, 19); -fx-padding: 3");
+
+                lblSel2.setFont(Font.font("Calibri", 15));
+                lblSel2.setStyle("-fx-text-fill: rgb(20, 25, 195); -fx-padding: 3");
+
+                lblSelectionTurn.setFont(Font.font("Calibri", 30));
+
                 Label lblVS = new Label(" VS ");
                 lblVS.setFont(Font.font("Calibri", 17));
                 HBox vsRow = new HBox();
@@ -92,6 +114,14 @@ public class SelectPlayer {
                 playersRow.getChildren().addAll(lblP1, lblVS, lblP2);
                 playersRow.setAlignment(Pos.CENTER);
 
+                HBox selectedRow = new HBox();
+                selectedRow.getChildren().addAll(lblSel1, lblSel2);
+                selectedRow.setAlignment(Pos.CENTER);
+
+                HBox turnRow = new HBox();
+                turnRow.getChildren().addAll(lblSelectionTurn);
+                turnRow.setAlignment(Pos.CENTER);
+
                 // VanishMan_____________________
                 Image vanishManIMG = new Image(getClass().getResource("/Assets/IMG/VanishMan.jpg").toString());
                 ImageView vanishMan = new ImageView(vanishManIMG);
@@ -102,9 +132,8 @@ public class SelectPlayer {
                 VBox vanishManBox = new VBox();
                 vanishManBox.getChildren().add(vanishMan);
                 vanishManBox.getStyleClass().add("playerIMG");
-                vanishManBox.setId("0");
-
-                /* vanishMan.getStyleClass().add("playerIMG"); */
+                vanishMan.setId("0");
+                vanishManBox.setId("b0");
 
                 // DeterGente_____________________
                 Image DeterGentIMG = new Image(getClass().getResource("/Assets/IMG/DeterGente.jpg").toString());
@@ -116,7 +145,8 @@ public class SelectPlayer {
                 VBox deterGenteManBox = new VBox();
                 deterGenteManBox.getChildren().add(DeterGente);
                 deterGenteManBox.getStyleClass().add("playerIMG");
-                deterGenteManBox.setId("1");
+                DeterGente.setId("1");
+                deterGenteManBox.setId("b1");
 
                 // LysoForm_____________________
                 Image LysoFormIMG = new Image(getClass().getResource("/Assets/IMG/Lysoform.jpg").toString());
@@ -128,7 +158,8 @@ public class SelectPlayer {
                 VBox lysoFormBox = new VBox();
                 lysoFormBox.getChildren().add(LysoForm);
                 lysoFormBox.getStyleClass().add("playerIMG");
-                lysoFormBox.setId("2");
+                LysoForm.setId("2");
+                lysoFormBox.setId("b2");
 
                 // MrMusculo_____________________
                 Image MrMusculoIMG = new Image(getClass().getResource("/Assets/IMG/MrMusculo.jpg").toString());
@@ -140,7 +171,8 @@ public class SelectPlayer {
                 VBox mrMusculoBox = new VBox();
                 mrMusculoBox.getChildren().add(MrMusculo);
                 mrMusculoBox.getStyleClass().add("playerIMG");
-                mrMusculoBox.setId("3");
+                MrMusculo.setId("3");
+                mrMusculoBox.setId("b3");
 
                 // PinhoSol_____________________
                 Image PinhoSolIMG = new Image(getClass().getResource("/Assets/IMG/PinhoSol.jpg").toString());
@@ -152,21 +184,19 @@ public class SelectPlayer {
                 VBox pinhoSolBox = new VBox();
                 pinhoSolBox.getChildren().add(PinhoSol);
                 pinhoSolBox.getStyleClass().add("playerIMG");
-                pinhoSolBox.setId("4");
+                PinhoSol.setId("4");
+                pinhoSolBox.setId("b4");
 
                 // Colocando a imagem horizontalmente da linha 1
-                HBox row1 = new HBox();
                 row1.setSpacing(10);
                 row1.setAlignment(Pos.CENTER);
                 row1.getChildren().addAll(vanishManBox, deterGenteManBox, lysoFormBox);
 
                 // Colocando a imagem horizontalmente da linha 2
-                HBox row2 = new HBox();
                 row2.setSpacing(10);
                 row2.setAlignment(Pos.CENTER);
                 row2.getChildren().addAll(mrMusculoBox, pinhoSolBox);
 
-                HBox panels = new HBox();
                 VBox sideMenu = new VBox();
                 VBox images = new VBox();
 
@@ -195,15 +225,18 @@ public class SelectPlayer {
 
                 images.getChildren().addAll(row1, row2);
 
-                Button btnSubmit = new Button("Salvar");
                 btnSubmit.setPrefWidth(100);
                 btnSubmit.setPrefHeight(40);
                 btnSubmit.setFont(Font.font("Calibri", 16));
+                btnSubmit.setOnAction(e -> Submit());
+
+                btnStart.setPrefWidth(100);
+                btnStart.setPrefHeight(40);
+                btnStart.setFont(Font.font("Calibri", 16));
 
                 btnReturn.setPrefHeight(40);
                 btnReturn.setFont(Font.font("Calibri", 16));
 
-                HBox btnRow = new HBox();
                 btnRow.getChildren().addAll(btnReturn, btnSubmit);
                 btnRow.setAlignment(Pos.BOTTOM_CENTER);
                 btnRow.setSpacing(10);
@@ -212,50 +245,55 @@ public class SelectPlayer {
                 panels.setSpacing(10);
                 panels.setAlignment(Pos.CENTER);
 
-                gridGame.getChildren().addAll(playersRow, panels, btnRow);
+                gridGame.getChildren().addAll(playersRow, selectedRow, turnRow, panels, btnRow);
 
                 var hoverOn = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setHoveredPlayer(((VBox) e.getTarget()));
+                                /* setHoveredPlayer(((VBox) e.getTarget())); */
+                                setHoveredPlayer(((ImageView) e.getTarget()));
                         }
                 };
 
                 var hoverOut = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                resetHoveredPlayer(((VBox) e.getTarget()).getId());
+                                /* resetHoveredPlayer(((VBox) e.getTarget()).getId()); */
+                                resetHoveredPlayer(((ImageView) e.getTarget()).getId());
                         }
                 };
 
                 var onClick = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                setSelectedPlayer(((VBox) e.getTarget()));
-                                currentPlayer = 2;
+                                /* setSelectedPlayer(((VBox) e.getTarget())); */
+                                setSelectedPlayer(((ImageView) e.getTarget()));
                         }
                 };
+                // vanishManBox
+                vanishMan.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
+                vanishMan.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                vanishMan.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
-                vanishManBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
+                // deterGenteManBox
+                DeterGente.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
+                DeterGente.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                DeterGente.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
-                deterGenteManBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
+                // lysoFormBox
+                LysoForm.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
+                LysoForm.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                LysoForm.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
-                lysoFormBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
+                // mrMusculoBox
+                MrMusculo.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
+                MrMusculo.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                MrMusculo.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
 
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
-                mrMusculoBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
-
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
-                pinhoSolBox.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
-
+                // pinhoSolBox
+                PinhoSol.addEventHandler(MouseEvent.MOUSE_ENTERED, hoverOn);
+                PinhoSol.addEventHandler(MouseEvent.MOUSE_EXITED, hoverOut);
+                PinhoSol.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
         }
 
         public void activate() {
@@ -263,15 +301,13 @@ public class SelectPlayer {
                 lblP2.setText(Menu.GetUser(2).getName());
         }
 
-        void setHoveredPlayer(VBox hovered) {
+        void setHoveredPlayer(ImageView hovered) {
                 var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
 
-                
-                 if (hovered.getStyleClass().contains("selectedIMG")) {
-                 return;
-                 }
-                
+                if (hovered.getStyleClass().contains("selectedIMG")) {
+                        return;
+                }
 
                 lblPlayerName.setText(player.getName());
                 String skills = "";
@@ -286,22 +322,77 @@ public class SelectPlayer {
                 var id = Integer.parseInt(_id);
         }
 
-        void setSelectedPlayer(VBox hovered) {
+        void setSelectedPlayer(ImageView hovered) {
                 var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
 
                 if (!player.getStatus())
                         return;
 
-                player.setStatus(false);
-                hovered.getStyleClass().remove("playerIMG");
-                hovered.getStyleClass().add("selectedIMG");
+                if (lastSelected != null) {
+                        lastSelected.getStyleClass().remove("pickedIMG");
+                        lastSelected.getStyleClass().add("playerIMG");
+                }
+
+                VBox hovBox = (VBox) scene.lookup("#b" + id);
+                hovBox.getStyleClass().remove("playerIMG");
+                hovBox.getStyleClass().add("pickedIMG");
+                lastSelected = hovBox;
 
                 if (currentPlayer == 1) {
-                        user01_Player = player;
+                        user01_PlayerID = id;
                 } else {
-                        user02_Player = player;
-                        lblHealth.setText("1- " + user01_Player.getName() + ", 2- " + user02_Player);
+                        user02_PlayerID = id;
+                }
+        }
+
+        void Submit() {
+                int id;
+                if (currentPlayer == 1) {
+                        id = user01_PlayerID;
+                        lblSel1.setText(Players.get(id).getName());
+                        lblSelectionTurn.setText("Escolha o personagem do jogador 2");
+                } else {
+                        id = user02_PlayerID;
+                        lblSel2.setText(Players.get(id).getName());
+                }
+
+                Players.get(id).setStatus(false);
+
+                VBox hovBox = (VBox) scene.lookup("#b" + id);
+                hovBox.getStyleClass().remove("pickedIMG");
+                hovBox.getStyleClass().add("selectedIMG");
+
+                if (currentPlayer == 2){
+                        btnRow.getChildren().remove(btnSubmit);
+                        btnRow.getChildren().add(btnStart);
+                }
+
+                currentPlayer = 2;
+        }
+
+        public void ResetForm() {
+                lblP1.setText("Jogador_1");
+                lblP2.setText("Jogador_2");
+                lblSel1.setText("Personagem_1");
+                lblSel2.setText("Personagem_2");
+                lblSelectionTurn.setText("Escolha o personagem do jogador 1");
+                lblPlayerName.setText("-");
+                lblSkills.setText("-");
+                lblHealth.setText("-");
+                user01_PlayerID = 0;
+                user02_PlayerID = 0;
+                currentPlayer = 1;
+
+                for (Node player : row1.getChildren()) {
+                        ((VBox) player).getStyleClass().remove("pickedIMG");
+                        ((VBox) player).getStyleClass().remove("selectedIMG");
+                        ((VBox) player).getStyleClass().add("playerIMG");
+                }
+                for (Node player : row2.getChildren()) {
+                        ((VBox) player).getStyleClass().remove("pickedIMG");
+                        ((VBox) player).getStyleClass().remove("selectedIMG");
+                        ((VBox) player).getStyleClass().add("playerIMG");
                 }
         }
 }

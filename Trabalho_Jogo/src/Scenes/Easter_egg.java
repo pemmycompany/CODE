@@ -46,10 +46,9 @@ public class Easter_egg {
 
     Stage primaryStage;
     VBox gridEaster_egg = new VBox();
-    public Scene scene = new Scene(gridEaster_egg, 800, 600, Color.BLACK);
+    public Scene scene = new Scene(gridEaster_egg, 800, 600);
     public Button btnReturn = new Button("Voltar");
 
-    MediaView mediaView;
     public MediaPlayer media;
 
     public Easter_egg(Stage primarystage){
@@ -64,21 +63,25 @@ public class Easter_egg {
         gridEaster_egg.setAlignment(Pos.CENTER);
 
         // Adicionando video para o grid
-        String path = "Assets/Video/Runbug.mp4";
-        Media videoMedia = new Media(new File(path).toURI().toString());
+        //getClass().getResource("/Assets/IMG/DeterGente.jpg").toString()
+        String path = "Assets/Video/Funny.mp4";
+
+        Media videomedia = new Media(Paths.get(path).toUri().toString());
+
+        // Media videoMedia = new Media(getClass().getResource("/Assets/Video/Funny.mp4").toString());
         
-        MediaPlayer eggPlay = new MediaPlayer(videoMedia);
+        MediaPlayer player = new MediaPlayer(videomedia);
 
-        mediaView = new MediaView(eggPlay);
+        MediaView mediaView = new MediaView(player);
 
-        eggPlay.setCycleCount(MediaPlayer.INDEFINITE);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
 
-        eggPlay.setAutoPlay(true);
+        player.play();
 
          // Adiciona todos os controles ao Grid
         gridEaster_egg.getChildren().addAll(mediaView, btnReturn);
 
-        String sound = "Assets/Music/Tutorial.wav";
+        String sound = "Assets/Music/steveDano.wav";
         Media eggmMedia = new Media(Paths.get(sound).toUri().toString());
         media = new MediaPlayer(eggmMedia);
 

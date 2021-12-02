@@ -83,7 +83,7 @@ public class MenuAnimation {
         scalTrans.setByY(1.5f);
         scalTrans.setCycleCount(2);
         
-        Circle circle2 = new Circle(180);
+        Circle circle2 = new Circle(250);
         circle2.setFill(Color.WHITE);
         circle2.setLayoutX(0);
         circle2.setLayoutY(-100);
@@ -128,7 +128,7 @@ public class MenuAnimation {
         scalTrans3.setByY(1.5f);
         scalTrans3.setCycleCount(2);
 
-        Circle circle4 = new Circle(180);
+        Circle circle4 = new Circle(250);
         circle4.setFill(Color.WHITE);
         circle4.setLayoutX(0);
         circle4.setLayoutY(-100);
@@ -145,9 +145,9 @@ public class MenuAnimation {
 
 
         // Cria eixo em formato de Retangulo para o movimento do ícone do EasterEgg
-        Rectangle rectangle = new Rectangle(250, 250);
-        rectangle.setLayoutX(-115);
-        rectangle.setLayoutY(-200);
+        Rectangle rectangle = new Rectangle(200, 150);
+        rectangle.setLayoutX(-90);
+        rectangle.setLayoutY(-133);
 
         final Duration SecondsFive = Duration.millis(2000);
         final Duration SecondsSix = Duration.millis(2000);

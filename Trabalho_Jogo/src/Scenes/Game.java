@@ -48,5 +48,8 @@ public class Game {
             }
         });
 
+        Label teste = new Label("Funcionou!");
+        gridGame.getChildren().add(teste);
+
     }
 }

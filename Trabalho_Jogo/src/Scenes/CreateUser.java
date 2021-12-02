@@ -34,6 +34,10 @@ public class CreateUser {
     User User_01;
     User User_02;
 
+    Label lblP1 = new Label("Jogador_1");
+    Label lblP2 = new Label("Jogador_2");
+    Label title = new Label("Quem vai ser o Jogador 1?");
+
     boolean isFirstPlayer = false;
 
     public CreateUser(Stage primaryStage, SelectPlayer selectPlayer) {
@@ -42,18 +46,28 @@ public class CreateUser {
         SetCreateUser();
     }
 
+    public void ResetForm() {
+        lblP1.setText("Jogador_1");
+        lblP2.setText("Jogador_2");
+        isFirstPlayer = true;
+        title.setText("Quem vai ser o Jogador 1?");
+
+        User_01 = null;
+        User_02 = null;
+    }
+
     private void SetCreateUser() {
+
         primaryStage.setTitle("Cadastro dos Jogadores");
         // Adiciona padding (margem interior) no painel de 15px
         gridGame.setStyle("-fx-padding: 80;");
         gridGame.setAlignment(Pos.CENTER);
 
         // Jogador 1 vs Jogador 2_______________________________________________________
-        Label lblP1 = new Label("Jogador_1");
+
         lblP1.setFont(Font.font("Calibri", 25));
         lblP1.setStyle("-fx-text-fill: rgb(22, 28, 202);");
 
-        Label lblP2 = new Label("Jogador_2");
         lblP2.setFont(Font.font("Calibri", 25));
         lblP2.setStyle("-fx-text-fill: rgb(183, 21, 21);");
 
@@ -65,10 +79,7 @@ public class CreateUser {
         vsRow.setAlignment(Pos.TOP_CENTER);
 
         // Titulo_________________________________________________________
-        Text title = new Text("Quem vai ser o Jogador 1?");
         title.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
-
-        title.setText("Jogador 1, selecione seu Personagem...");
 
         // Nome_______________________________________________________
         Label lblName = new Label("Nome");

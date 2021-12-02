@@ -22,3 +22,11 @@
     -fx-border-width: 2;
     -fx-border-radius: 5;
 }
+
+.pickedIMG{
+    fx-padding: 10;
+    -fx-border-color: green;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}
