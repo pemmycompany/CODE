@@ -63,12 +63,10 @@ public class Easter_egg {
         gridEaster_egg.setAlignment(Pos.CENTER);
 
         // Adicionando video para o grid
-        //getClass().getResource("/Assets/IMG/DeterGente.jpg").toString()
         String path = "Assets/Video/Funny.mp4";
 
         Media videomedia = new Media(Paths.get(path).toUri().toString());
 
-        // Media videoMedia = new Media(getClass().getResource("/Assets/Video/Funny.mp4").toString());
         
         MediaPlayer player = new MediaPlayer(videomedia);
 

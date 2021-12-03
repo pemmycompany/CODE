@@ -31,8 +31,8 @@ public class CreateUser {
     public Button btnReturn = new Button("Voltar");
     SelectPlayer selectPlayer;
 
-    User User_01;
-    User User_02;
+    public User User_01;
+    public User User_02;
 
     Label lblP1 = new Label("Jogador_1");
     Label lblP2 = new Label("Jogador_2");

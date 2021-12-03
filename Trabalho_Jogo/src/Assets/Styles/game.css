@@ -1,0 +1,7 @@
+.option:hover{
+    -fx-fill: rgb(128, 217, 180);
+}
+
+.option{
+    -fx-fill: rgb(136, 42, 42);
+}

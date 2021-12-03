@@ -32,7 +32,7 @@ public class SelectPlayer {
         public Scene scene = new Scene(gridGame, 800, 600);
         public Button btnReturn = new Button("Voltar");
 
-        ArrayList<Player> Players = new ArrayList<Player>();
+        public ArrayList<Player> Players = new ArrayList<Player>();
 
         Label lblP1 = new Label("Jogador_1");
         Label lblP2 = new Label("Jogador_2");
@@ -53,8 +53,8 @@ public class SelectPlayer {
         HBox row2 = new HBox();
         HBox btnRow = new HBox();
 
-        int user01_PlayerID;
-        int user02_PlayerID;
+        public int user01_PlayerID;
+        public int user02_PlayerID;
 
         public int currentPlayer = 1;
 

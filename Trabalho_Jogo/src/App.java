@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Components.Option;
+import Components.Player;
 import Components.Question;
 import Components.QuestionScene;
 import Components.User;
@@ -45,6 +46,10 @@ public class App extends Application {
     MenuAnimation animation;
     Easter_egg easter_egg;
     Stage primaryStage;
+
+    User user_1, user_2;
+    Player player_1, player_2;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -121,6 +126,11 @@ public class App extends Application {
         });
 
         selectPlayer.btnStart.setOnAction(e -> {
+            game.user_1 = createUser.User_01;
+            game.user_2 = createUser.User_02;
+            player_1 = selectPlayer.Players.get(selectPlayer.user01_PlayerID);
+            player_2 = selectPlayer.Players.get(selectPlayer.user02_PlayerID);
+            game.SetGame();
             primaryStage.setScene(game.scene);
             menu.mediamenu.stop();
             game.media.play();
