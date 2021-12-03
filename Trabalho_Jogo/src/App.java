@@ -24,7 +24,12 @@ import javafx.geometry.Pos;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import Components.Option;
+import Components.Question;
+import Components.QuestionScene;
 import Components.User;
 import Scenes.*;
 
@@ -39,11 +44,12 @@ public class App extends Application {
     SelectPlayer selectPlayer;
     MenuAnimation animation;
     Easter_egg easter_egg;
+    Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Cria um novo grid
-        VBox gridGame = new VBox();
+        this.primaryStage = primaryStage;
+
         // Instanciando as Cenas principais
         animation = new MenuAnimation(primaryStage);
         menu = new Menu(primaryStage, animation);
@@ -60,6 +66,7 @@ public class App extends Application {
         // Define um título para o menu
         primaryStage.setTitle("Ultimate Una Quiz");
         // Iniciar - define a primeira Cena e a exibe
+
         primaryStage.setScene(menu.scene);
         primaryStage.show();
         menu.mediamenu.setStartTime(Duration.seconds(3));
@@ -68,7 +75,7 @@ public class App extends Application {
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
-            primaryStage.setScene(createUser.scene);
+            primaryStage.setScene(game.scene);
         });
 
         game.btnReturn.setOnAction(e -> {

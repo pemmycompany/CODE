@@ -9,4 +9,7 @@ public class Option {
         this.text = text;
         this.isAnswer = isAnswer;
     }
+
+    public String getText(){return text;}
+    public boolean isAnswer(){return isAnswer;}
 }

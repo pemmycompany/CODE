@@ -26,5 +26,6 @@
         "c:\\Users\\Mathaus\\Downloads\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
         "c:\\Users\\Mathaus\\Downloads\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar"
     ],
-    "files.autoGuessEncoding": true
+    "files.autoGuessEncoding": true,
+    "files.encoding": "utf8"
 }
