@@ -1,11 +1,23 @@
-.imgback{
-    -fx-background-image:url("/Assets/IMG/Geometric.jpg");
-    -fx-background-size:cover;
-}
-
-.aboutbordtitle{
-    -fx-border-color: yellow;
-    -fx-border-style: solid inside;
-    -fx-border-width: 2;
-    -fx-border-radius: 3;
-}
+    .imgback {
+        -fx-background-image: url("/Assets/IMG/Geometric.jpg");
+        -fx-background-size: cover;
+    }
+    
+    .aboutbordtitle {
+        -fx-border-color: yellow;
+        -fx-border-style: solid inside;
+        -fx-border-width: 2;
+        -fx-border-radius: 3;
+    }
+    
+    .imgbackegg {
+        -fx-background-image: url("/Assets/IMG/secrect.jpg");
+        -fx-background-size: cover;
+    }
+    
+    .eggbordtitle {
+        -fx-border-color: rgb(255, 255, 255);
+        -fx-border-style: solid inside;
+        -fx-max-width: 3;
+        -fx-max-height: 3;
+    }

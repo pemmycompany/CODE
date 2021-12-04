@@ -58,6 +58,7 @@ public class Easter_egg {
     }
 
     public void setEaster_egg(){
+        scene.getStylesheets().add("Assets/Styles/about.css");
 
         // Adiciona padding (margem interior) no painel de 15px
         gridEaster_egg.setStyle("-fx-padding: 15;");
@@ -74,9 +75,12 @@ public class Easter_egg {
         HBox rowMedia = new HBox(); 
         rowMedia.getChildren().add(mediaView);
         rowMedia.setAlignment(Pos.CENTER);
+        rowMedia.getStyleClass().add("eggboardtitle");
+
 
          // Adiciona todos os controles ao Grid
         gridEaster_egg.getChildren().addAll(rowMedia, btnReturn);
+        gridEaster_egg.getStyleClass().add("imgbackegg");
 
         String sound = "Assets/Music/steveDano.wav";
         Media eggmMedia = new Media(Paths.get(sound).toUri().toString());
