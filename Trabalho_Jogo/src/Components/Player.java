@@ -46,4 +46,11 @@ public class Player {
         else
             health = 0;
     }
+
+    public void giveHealth(float value) {
+        if (health + value < totalHealth)
+            health += value;
+        else
+            health = totalHealth;
+    }
 }

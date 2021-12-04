@@ -1,0 +1,4 @@
+.imgpodiumcreate {
+    -fx-background-image: url("/Assets/IMG/GameOver.png");
+    -fx-background-size: cover;
+}

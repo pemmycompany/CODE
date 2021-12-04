@@ -36,13 +36,19 @@ public class Game {
         public Scene scene = new Scene(gridGame, 800, 600);
         public Button btnReturn = new Button("Voltar");
         public Button btnNext = new Button("Proxima");
+        Button btnStop = new Button("Parar Jogo");
+        public Button btnConfirmStop = new Button("Sim");
+        public Button btnDenyStop = new Button("Negar");
         HBox btnRow;
         Label playerTurn;
 
-        ProgressBar p1HealthBar;
-        ProgressBar p2HealthBar;
+        public Stage stopStage = new Stage();
+
+        public ProgressBar p1HealthBar;
+        public ProgressBar p2HealthBar;
 
         boolean isAnswering = false;
+        boolean acceptedStop = false;
 
         public MediaPlayer media;
         ArrayList<Question> questions;
@@ -51,7 +57,7 @@ public class Game {
         int userTurn;
         public boolean isCorrect = false;
         public User user_1 = new User("Jogador 1", "", "", ""), user_2 = new User("Jogador 2", "", "", "");
-        public Player player_1, player_2;
+        public Player player_1 = new Player("",new String[]{""},true, 100), player_2 = new Player("",new String[]{""},true, 100);
 
         public Game(Stage primaryStage) {
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
@@ -153,6 +159,10 @@ public class Game {
                         NextQuestion();
                 });
 
+                btnStop.setOnAction(e -> {
+                        RequestStop();
+                });
+
                 HBox Header = new HBox();
                 VBox leftCol = new VBox();
                 VBox rightCol = new VBox();
@@ -212,7 +222,7 @@ public class Game {
                 btnRow = new HBox();
                 btnRow.getChildren().addAll(btnReturn);
 
-                gridGame.getChildren().addAll(Header, playerTurn, btnRow);
+                gridGame.getChildren().addAll(btnStop, Header, playerTurn, btnRow);
                 btnRow.setAlignment(Pos.CENTER);
                 btnRow.setSpacing(10);
 
@@ -225,8 +235,8 @@ public class Game {
                 }
 
                 userTurn = (userTurn == 1 ? 2 : 1);
-                Player currentPlayer = (userTurn == 1 ?player_1:player_2);
-                User currentUser = (userTurn == 1 ?user_1:user_2);
+                Player currentPlayer = (userTurn == 1 ? player_1 : player_2);
+                User currentUser = (userTurn == 1 ? user_1 : user_2);
                 playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getName() + "', responda:");
 
                 Question currentQuestion = getRandomQuestion();
@@ -242,11 +252,12 @@ public class Game {
                 Task<Void> takeHealthOverTime = new Task<Void>() {
                         @Override
                         public Void call() throws InterruptedException {
-                                while(isAnswering){
+                                while (isAnswering) {
                                         currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.02f);
-                                        currentPlayerBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
+                                        currentPlayerBar.setProgress(
+                                                        currentPlayer.getHealth() / currentPlayer.getTotalHealth());
 
-                                        if(currentPlayer.getHealth() == 0){
+                                        if (currentPlayer.getHealth() == 0) {
                                                 isAnswering = false;
                                                 System.out.println("Jogador '" + currentUser.getName() + "' Perdeu!");
                                         }
@@ -279,5 +290,60 @@ public class Game {
 
                 questions.remove(questions.get(questions.indexOf(currentQuestion)));
                 btnRow.getChildren().add(btnNext);
+        }
+
+        public void RequestStop() {
+                isAnswering = false;
+                Player currentPlayer = userTurn == 1 ? player_1 : player_2;
+                Player oponentPlayer = userTurn == 2 ? player_1 : player_2;
+                User currentUser = (userTurn == 1 ? user_1 : user_2);
+                User oponentUser = (userTurn == 2 ? user_1 : user_2);
+
+                if (player_1.getHealth() > player_2.getHealth()) {
+                        // vencedor 1
+                } else if (player_1.getHealth() < player_2.getHealth()) {
+                        // vencedor 2
+                } else {
+                        // empate
+                }
+
+                VBox grid = new VBox(5);
+                grid.setAlignment(Pos.CENTER);
+                Label lblConfirm = new Label(
+                                "Jogador '" + oponentUser.getName()
+                                                + "', deseja encerrar o jogo?");
+
+                HBox btnRow = new HBox();
+                btnRow.setAlignment(Pos.CENTER);
+                btnRow.setSpacing(10);
+                btnRow.getChildren().addAll(btnDenyStop, btnConfirmStop);
+
+                grid.getChildren().addAll(lblConfirm, btnRow);
+
+                stopStage.setTitle("Pedido de parada");
+                stopStage.setScene(new Scene(grid, 400, 150));
+                stopStage.show();
+
+        }
+
+        public void DenyStop() {
+                Player currentPlayer = userTurn == 1 ? player_1 : player_2;
+                Player oponentPlayer = userTurn == 2 ? player_1 : player_2;
+
+                float takenHealth = currentPlayer.getHealth() * 0.15f;
+                currentPlayer.takeHealth(takenHealth);
+                oponentPlayer.giveHealth(takenHealth);
+                if (userTurn == 1) {
+                        p1HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
+                } else {
+                        p2HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
+                }
+        }
+
+        public void ResetGame(){
+                if(btnRow != null){
+                        btnRow.getChildren().clear();
+                }
+                gridGame.getChildren().clear();
         }
 }

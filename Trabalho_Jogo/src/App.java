@@ -45,11 +45,13 @@ public class App extends Application {
     SelectPlayer selectPlayer;
     MenuAnimation animation;
     Easter_egg easter_egg;
+    ScoreBoard scoreBoard;
     Stage primaryStage;
 
-    /* User user_1, user_2;
-    Player player_1, player_2; */
-
+    /*
+     * User user_1, user_2;
+     * Player player_1, player_2;
+     */
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -75,15 +77,16 @@ public class App extends Application {
         primaryStage.setScene(menu.scene);
         primaryStage.show();
         menu.mediamenu.setStartTime(Duration.seconds(3));
-        // menu.mediamenu.play();
+        menu.mediamenu.play();
     }
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
-            game.player_1 = new Player("VanishMan", new String[]{""}, true, 100f );
-            game.player_2 = new Player("DeterGente", new String[]{""}, true, 100f );
-            game.SetGame();
-            primaryStage.setScene(game.scene);
+            /* game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
+            game.player_2 = new Player("DeterGente", new String[] { "" }, true, 100f);
+            game.ResetGame();
+            game.SetGame(); */
+            primaryStage.setScene(createUser.scene);
         });
 
         game.btnReturn.setOnAction(e -> {
@@ -138,6 +141,38 @@ public class App extends Application {
             primaryStage.setScene(game.scene);
             menu.mediamenu.stop();
             game.media.play();
+        });
+
+        game.btnConfirmStop.setOnAction(e -> {
+            scoreBoard = new ScoreBoard(primaryStage, game.p1HealthBar, game.p2HealthBar);
+            game.stopStage.close();
+            primaryStage.setScene(scoreBoard.scene);
+            game.media.stop();
+            menu.mediamenu.stop();
+            scoreBoard.media.play();
+
+            scoreBoard.btnReturn.setOnAction(ev -> {
+                primaryStage.setScene(menu.scene);
+                scoreBoard.media.stop();
+                menu.mediamenu.play();
+            });
+        });
+
+        game.btnDenyStop.setOnAction(e -> {
+            scoreBoard = new ScoreBoard(primaryStage, game.p1HealthBar, game.p2HealthBar);
+            game.DenyStop();
+            game.stopStage.close();
+            primaryStage.setScene(scoreBoard.scene);
+            game.media.stop();
+            menu.mediamenu.stop();
+            scoreBoard.media.play();
+
+            scoreBoard.btnReturn.setOnAction(ev -> {
+                game.ResetGame();
+                primaryStage.setScene(menu.scene);
+                scoreBoard.media.stop();
+                menu.mediamenu.play();
+            });
         });
 
         menu.btnQuit.setOnAction(e -> Platform.exit());

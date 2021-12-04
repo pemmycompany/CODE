@@ -63,7 +63,7 @@ public class CreateUser {
         // Adiciona padding (margem interior) no painel de 15px
         gridGame.setStyle("-fx-padding: 80;");
         gridGame.setAlignment(Pos.CENTER);
-        gridGame.getStyleClass().add("imgbackcreat");
+        /* gridGame.getStyleClass().add("imgbackcreate"); */
 
         // Jogador 1 vs Jogador 2_______________________________________________________
 

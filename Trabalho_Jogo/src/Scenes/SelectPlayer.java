@@ -46,7 +46,7 @@ public class SelectPlayer {
         HBox panels = new HBox();
         VBox lastSelected;
 
-        public Button btnStart = new Button("Selecionar");
+        public Button btnStart = new Button("Iniciar");
         Button btnSubmit = new Button("Selecionar");
 
         HBox row1 = new HBox();
@@ -60,7 +60,6 @@ public class SelectPlayer {
 
         public SelectPlayer(Stage primaryStage) {
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
-
                 this.primaryStage = primaryStage;
                 setPlayer();
 
@@ -82,6 +81,7 @@ public class SelectPlayer {
         }
 
         void setPlayer() {
+                btnSubmit.setDisable(true);
                 primaryStage.setTitle("Cadastro dos Jogadores");
 
                 // Adiciona padding (margem interior) no painel de 15px
@@ -326,8 +326,11 @@ public class SelectPlayer {
                 var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
 
-                if (!player.getStatus())
+                if (player.getStatus()) {
+                        btnSubmit.setDisable(false);
+                } else {
                         return;
+                }
 
                 if (lastSelected != null) {
                         lastSelected.getStyleClass().remove("pickedIMG");
@@ -347,6 +350,7 @@ public class SelectPlayer {
         }
 
         void Submit() {
+                btnSubmit.setDisable(true);
                 int id;
                 if (currentPlayer == 1) {
                         id = user01_PlayerID;
@@ -363,7 +367,7 @@ public class SelectPlayer {
                 hovBox.getStyleClass().remove("pickedIMG");
                 hovBox.getStyleClass().add("selectedIMG");
 
-                if (currentPlayer == 2){
+                if (currentPlayer == 2) {
                         btnRow.getChildren().remove(btnSubmit);
                         btnRow.getChildren().add(btnStart);
                 }
@@ -396,3 +400,5 @@ public class SelectPlayer {
                 }
         }
 }
+
+// Linha não encontrada
