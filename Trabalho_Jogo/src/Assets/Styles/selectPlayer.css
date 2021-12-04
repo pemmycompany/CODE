@@ -30,3 +30,15 @@
     -fx-border-width: 2;
     -fx-border-radius: 5;
 }
+
+.gameimgback{
+    -fx-background-image:url("/Assets/IMG/questions.jpg");
+    -fx-background-size:cover;
+}
+
+.red-bar{
+    -fx-accent: rgb(255,0,0);
+}
+.blue-bar{
+    -fx-accent: rgb(0,0,255);
+}

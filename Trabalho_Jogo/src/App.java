@@ -47,8 +47,8 @@ public class App extends Application {
     Easter_egg easter_egg;
     Stage primaryStage;
 
-    User user_1, user_2;
-    Player player_1, player_2;
+    /* User user_1, user_2;
+    Player player_1, player_2; */
 
 
     @Override
@@ -75,16 +75,20 @@ public class App extends Application {
         primaryStage.setScene(menu.scene);
         primaryStage.show();
         menu.mediamenu.setStartTime(Duration.seconds(3));
-        menu.mediamenu.play();
+        // menu.mediamenu.play();
     }
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
+            game.player_1 = new Player("VanishMan", new String[]{""}, true, 100f );
+            game.player_2 = new Player("DeterGente", new String[]{""}, true, 100f );
+            game.SetGame();
             primaryStage.setScene(game.scene);
         });
 
         game.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
+            game.Reset();
             game.media.stop();
             menu.mediamenu.play();
             menu.mediamenu.seek(Duration.millis(3000));
@@ -128,8 +132,8 @@ public class App extends Application {
         selectPlayer.btnStart.setOnAction(e -> {
             game.user_1 = createUser.User_01;
             game.user_2 = createUser.User_02;
-            player_1 = selectPlayer.Players.get(selectPlayer.user01_PlayerID);
-            player_2 = selectPlayer.Players.get(selectPlayer.user02_PlayerID);
+            game.player_1 = selectPlayer.Players.get(selectPlayer.user01_PlayerID);
+            game.player_2 = selectPlayer.Players.get(selectPlayer.user02_PlayerID);
             game.SetGame();
             primaryStage.setScene(game.scene);
             menu.mediamenu.stop();

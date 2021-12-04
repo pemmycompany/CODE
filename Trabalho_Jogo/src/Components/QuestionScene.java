@@ -3,6 +3,7 @@ package Components;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import Components.*;
+import Scenes.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -25,27 +26,26 @@ import javafx.geometry.Pos;
 
 public class QuestionScene {
     // Criando um estágio
-    Stage primaryStage;
+    Game game;
     public VBox gridGame = new VBox(5);
     public Scene scene = new Scene(gridGame, 800, 600);
     Question sceneQuestion;
     int selectedOption;
     boolean chosed = false;
+    boolean isCorrect;
+    QuestionScene thisScene = this;
 
-    public QuestionScene(Stage primaryStage, Question sceneQuestion) {
-        this.primaryStage = primaryStage;
+    public QuestionScene(Game game, Question sceneQuestion) {
+        this.game = game;
         this.sceneQuestion = sceneQuestion;
-        gridGame.setStyle("-fx-background-color: black");
+        gridGame.setStyle("-fx-background-color: rgba(0,0,0,0.4)");
+        gridGame.setPadding(new Insets(10));
         gridGame.setAlignment(Pos.CENTER);
         gridGame.setSpacing(20);
-        SetScene();
     }
 
-    private void SetScene() {
-        Label question = new Label(sceneQuestion.getText());
-        question.setWrapText(true);
-        question.setFont(Font.font("Calibri", 23));
-        question.setStyle("-fx-text-fill: rgb(73, 160, 204); -fx-padding: 50");
+    public void SetQuestion() {
+        isCorrect = false;
 
         var onEnter = new EventHandler<MouseEvent>() {
             @Override
@@ -66,21 +66,33 @@ public class QuestionScene {
         var onClick = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (chosed) return;
+                if (chosed)
+                    return;
                 Text target = ((Text) e.getTarget());
                 selectedOption = Integer.parseInt(target.getId());
 
                 chosed = true;
 
-                if (sceneQuestion.getOptions().get(selectedOption).isAnswer()) {
+                isCorrect = sceneQuestion.getOptions().get(selectedOption).isAnswer();
+                if (isCorrect) {
                     target.setFill(Color.rgb(0, 180, 17));
                 } else {
                     target.setFill(Color.rgb(200, 23, 23));
                 }
+                game.isCorrect = isCorrect;
+                game.Answer(sceneQuestion, thisScene);
             }
         };
 
-        gridGame.getChildren().add(question);
+        HBox questionBox = new HBox();
+        Text question = new Text(sceneQuestion.getText());
+        questionBox.setAlignment(Pos.CENTER);
+        question.setWrappingWidth(600);
+        question.setFont(Font.font("Calibri", 23));
+        question.setFill(Color.rgb(73, 160, 204));
+        questionBox.getChildren().addAll(question);
+        
+        gridGame.getChildren().add(questionBox);
 
         String[] optionsPrefix = new String[] { "A) ", "B) ", "C) ", "D) ", "E) " };
 

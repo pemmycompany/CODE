@@ -34,10 +34,12 @@ public class Tutorial {
     }
 
     private void SetTutorial() {
+        scene.getStylesheets().add("/Assets/Styles/Tutorial.css");
         // Adiciona padding (margem interior) no painel de 15px
         gridTutorial.setStyle("-fx-padding: 15;");
         gridTutorial.setAlignment(Pos.CENTER);
-
+        gridTutorial.getStyleClass().add("imgtutorialback");
+        
         Text title = new Text();
         title.setText("TESTE");
 

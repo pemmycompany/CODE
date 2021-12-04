@@ -32,6 +32,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -64,20 +65,18 @@ public class Easter_egg {
 
         // Adicionando video para o grid
         String path = "Assets/Video/Funny.mp4";
-
         Media videomedia = new Media(Paths.get(path).toUri().toString());
-
-        
         MediaPlayer player = new MediaPlayer(videomedia);
-
         MediaView mediaView = new MediaView(player);
-
         player.setCycleCount(MediaPlayer.INDEFINITE);
-
         player.play();
+        
+        HBox rowMedia = new HBox(); 
+        rowMedia.getChildren().add(mediaView);
+        rowMedia.setAlignment(Pos.CENTER);
 
          // Adiciona todos os controles ao Grid
-        gridEaster_egg.getChildren().addAll(mediaView, btnReturn);
+        gridEaster_egg.getChildren().addAll(rowMedia, btnReturn);
 
         String sound = "Assets/Music/steveDano.wav";
         Media eggmMedia = new Media(Paths.get(sound).toUri().toString());

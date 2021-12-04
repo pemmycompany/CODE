@@ -1,0 +1,11 @@
+.imgback{
+    -fx-background-image:url("/Assets/IMG/Geometric.jpg");
+    -fx-background-size:cover;
+}
+
+.aboutbordtitle{
+    -fx-border-color: yellow;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}

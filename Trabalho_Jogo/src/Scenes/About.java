@@ -1,5 +1,6 @@
 package Scenes;
 
+import java.awt.Color;
 import java.nio.file.Paths;
 
 import javafx.application.Application;
@@ -32,8 +33,11 @@ public class About {
     }
 
     private void SetAbout() {
-        // Adiciona padding (margem interior) no painel de 15px
-        gridAbout.setStyle("-fx-padding: 15; -fx-background: black");
+
+        scene.getStylesheets().add("Assets/Styles/about.css");
+        gridAbout.getStyleClass().add("imgback");
+        // gridAbout.setStyle("-fx-padding: 15; -fx-background: black");
+        gridAbout.setSpacing(5);
         gridAbout.setAlignment(Pos.CENTER);
 
         String path2 = "Assets/Video/memedance.mp4";
@@ -51,22 +55,22 @@ public class About {
         title.setText("Sobre os devs");
         HBox rowTitle = new HBox();
         rowTitle.getChildren().add(title);
+        rowTitle.setStyle("-fx-background: rgba(45, 255, 55, 0);");
         title.setFont(Font.font("castellar", 20));
-        title.setStyle("-fx-text-fill: rgb(132, 30, 2);");
+        title.setStyle("-fx-text-fill: rgb(255, 255, 0);");
+        rowTitle.getStyleClass().add("aboutbordtitle");
         rowTitle.setAlignment(Pos.CENTER);       
         
-
-        Label AboutDevs = new Label("Criado por Pedro Henrique, Elias Lima e Mathaus Puff.\nSe trata de um trabalho final da faculdade com o intuito de aprender e desenvolver programas orientado a objetos.\nTivemos nossas dificuldades ao criarmos o jogo, mas com o trabalho em equipe conseguimos solucionar os problemas.");
+        Label AboutDevs = new Label("Somos 3 alunos (Elias Lima, Mathaus Puff e Pedro Henrique) do Instituto de Ensino UNA, e criamos esse grupo com o objetivo de realizar um trabalho que nos foi dado durante o semestre. Estamos cursando 'GTI' e 'SI' no segundo semestre, e fomos desafiados com um trabalho que tem por objetivo criar um jogo de perguntas com personagens e deve possuir uma maior interatividade com o jogador. O trabalho precisa ser feito com um documento que envolve todos os processos do programa e deve ser desenvolvido na linguagem de 'Java'.");
         HBox lineLabel = new HBox();
         lineLabel.getChildren().add(AboutDevs);
-        AboutDevs.setFont(Font.font("Calibri", 18));
+        AboutDevs.setFont(Font.font("arial", 15));
         AboutDevs.setWrapText(true);
-        AboutDevs.setStyle("-fx-text-fill: rgb(22, 28, 202); -fx-padding: 100;");
+        AboutDevs.setStyle("-fx-text-fill: rgb(255, 255, 255); -fx-padding: 100;");
 
         VBox btnRow = new VBox();
         btnRow.getChildren().addAll(btnReturn);
         btnRow.setAlignment(Pos.BOTTOM_CENTER);
-        btnRow.setSpacing(5);
 
         // Adiciona todos os controles ao Grid
         gridAbout.getChildren().addAll(rowTitle, lineLabel, rowMedia, btnRow );

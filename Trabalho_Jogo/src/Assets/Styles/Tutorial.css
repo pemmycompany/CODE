@@ -1,0 +1,11 @@
+.imgtutorialback{
+    -fx-background-image:url("/Assets/IMG/Tutorials_1920.jpg");
+    -fx-background-size:cover;
+}
+
+.tutorialbordtitle{
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+}

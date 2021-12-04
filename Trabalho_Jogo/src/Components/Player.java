@@ -6,18 +6,22 @@ public class Player {
     String[] skills;
     boolean status;
     float health;
+    float totalHealth;
 
     public Player(String name, String[] skills, boolean status, float health) {
         this.name = name;
         this.skills = skills;
         this.status = status;
         this.health = health;
+        this.totalHealth = health;
     }
 
     public String getName(){return name;}
     public String[] getSkills(){return skills;}
     public boolean getStatus(){return status;}
     public float getHealth(){return health;}
+    public float getTotalHealth(){return totalHealth;}
 
     public void setStatus(boolean value){status = value;}
+    public void takeHealth(float value){health -= value;}
 }
