@@ -57,7 +57,8 @@ public class Game {
         int userTurn;
         public boolean isCorrect = false;
         public User user_1 = new User("Jogador 1", "", "", ""), user_2 = new User("Jogador 2", "", "", "");
-        public Player player_1 = new Player("",new String[]{""},true, 100), player_2 = new Player("",new String[]{""},true, 100);
+        public Player player_1 = new Player("", new String[] { "" }, true, 100),
+                        player_2 = new Player("", new String[] { "" }, true, 100);
 
         public Game(Stage primaryStage) {
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
@@ -329,19 +330,21 @@ public class Game {
         public void DenyStop() {
                 Player currentPlayer = userTurn == 1 ? player_1 : player_2;
                 Player oponentPlayer = userTurn == 2 ? player_1 : player_2;
-
-                float takenHealth = currentPlayer.getHealth() * 0.15f;
+                System.out.println("Jogador 1 antes: " + player_1.getHealth());
+                System.out.println("Jogador 2 antes: " + player_2.getHealth());
+                
+                float takenHealth = currentPlayer.getTotalHealth() * 0.15f;
                 currentPlayer.takeHealth(takenHealth);
                 oponentPlayer.giveHealth(takenHealth);
-                if (userTurn == 1) {
-                        p1HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
-                } else {
-                        p2HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
-                }
+                p1HealthBar.setProgress(player_1.getHealth() / player_1.getTotalHealth());
+                p2HealthBar.setProgress(player_2.getHealth() / player_2.getTotalHealth());
+                
+                System.out.println("Jogador 1 depois: " + player_1.getHealth());
+                System.out.println("Jogador 2 depois: " + player_2.getHealth());
         }
-
-        public void ResetGame(){
-                if(btnRow != null){
+        
+        public void ResetGame() {
+                if (btnRow != null) {
                         btnRow.getChildren().clear();
                 }
                 gridGame.getChildren().clear();

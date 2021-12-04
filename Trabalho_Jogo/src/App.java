@@ -82,11 +82,11 @@ public class App extends Application {
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
-            /* game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
+            game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
             game.player_2 = new Player("DeterGente", new String[] { "" }, true, 100f);
             game.ResetGame();
-            game.SetGame(); */
-            primaryStage.setScene(createUser.scene);
+            game.SetGame();
+            primaryStage.setScene(game.scene);
         });
 
         game.btnReturn.setOnAction(e -> {
@@ -145,6 +145,7 @@ public class App extends Application {
 
         game.btnConfirmStop.setOnAction(e -> {
             scoreBoard = new ScoreBoard(primaryStage, game.p1HealthBar, game.p2HealthBar);
+            scoreBoard.setScore(game.user_1, game.user_2, game.player_1, game.player_2);
             game.stopStage.close();
             primaryStage.setScene(scoreBoard.scene);
             game.media.stop();
@@ -152,6 +153,7 @@ public class App extends Application {
             scoreBoard.media.play();
 
             scoreBoard.btnReturn.setOnAction(ev -> {
+                game.ResetGame();
                 primaryStage.setScene(menu.scene);
                 scoreBoard.media.stop();
                 menu.mediamenu.play();
@@ -159,8 +161,9 @@ public class App extends Application {
         });
 
         game.btnDenyStop.setOnAction(e -> {
-            scoreBoard = new ScoreBoard(primaryStage, game.p1HealthBar, game.p2HealthBar);
             game.DenyStop();
+            scoreBoard = new ScoreBoard(primaryStage, game.p1HealthBar, game.p2HealthBar);
+            scoreBoard.setScore(game.user_1, game.user_2, game.player_1, game.player_2);
             game.stopStage.close();
             primaryStage.setScene(scoreBoard.scene);
             game.media.stop();

@@ -100,9 +100,10 @@ public class QuestionScene {
                     stage.show();
 
                     btnConfirm.setOnAction(ev -> {
+                        isCorrect = sceneQuestion.getOptions().get(selectedOption).isAnswer();
+                        game.isCorrect = isCorrect;
                         game.Answer(sceneQuestion, thisScene);
                         stage.close();
-                        isCorrect = sceneQuestion.getOptions().get(selectedOption).isAnswer();
                         
                         if (isCorrect) {
                             target.setFill(Color.rgb(0, 180, 17));
@@ -151,7 +152,6 @@ public class QuestionScene {
 
                         btnOk.setOnAction(eve -> {
                             feedbackStage.close();
-                            game.isCorrect = isCorrect;
                         });
                     });
 

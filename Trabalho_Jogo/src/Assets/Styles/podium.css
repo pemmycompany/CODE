@@ -2,3 +2,19 @@
     -fx-background-image: url("/Assets/IMG/GameOver.png");
     -fx-background-size: cover;
 }
+
+.playerPodiumBorderOne{
+    fx-padding: 10;
+    -fx-border-color: blue;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+}
+.playerPodiumBorderTwo{
+    fx-padding: 10;
+    -fx-border-color: red;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+}
+
