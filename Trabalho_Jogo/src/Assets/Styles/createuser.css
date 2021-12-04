@@ -1,0 +1,4 @@
+.imgbackcreate {
+    -fx-background-image: url("/Assets/IMG/registration.jpg");
+    -fx-background-size: cover;
+}

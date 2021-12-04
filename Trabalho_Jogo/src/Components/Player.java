@@ -16,12 +16,34 @@ public class Player {
         this.totalHealth = health;
     }
 
-    public String getName(){return name;}
-    public String[] getSkills(){return skills;}
-    public boolean getStatus(){return status;}
-    public float getHealth(){return health;}
-    public float getTotalHealth(){return totalHealth;}
+    public String getName() {
+        return name;
+    }
 
-    public void setStatus(boolean value){status = value;}
-    public void takeHealth(float value){health -= value;}
+    public String[] getSkills() {
+        return skills;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public float getTotalHealth() {
+        return totalHealth;
+    }
+
+    public void setStatus(boolean value) {
+        status = value;
+    }
+
+    public void takeHealth(float value) {
+        if (health - value > 0)
+            health -= value;
+        else
+            health = 0;
+    }
 }

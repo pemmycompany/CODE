@@ -7,6 +7,7 @@ import java.util.Random;
 
 import Components.*;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -40,6 +41,8 @@ public class Game {
 
         ProgressBar p1HealthBar;
         ProgressBar p2HealthBar;
+
+        boolean isAnswering = false;
 
         public MediaPlayer media;
         ArrayList<Question> questions;
@@ -222,6 +225,8 @@ public class Game {
                 }
 
                 userTurn = (userTurn == 1 ? 2 : 1);
+                Player currentPlayer = (userTurn == 1 ?player_1:player_2);
+                User currentUser = (userTurn == 1 ?user_1:user_2);
                 playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getName() + "', responda:");
 
                 Question currentQuestion = getRandomQuestion();
@@ -230,6 +235,30 @@ public class Game {
                 btnRow.getChildren().remove(btnNext);
 
                 gridGame.getChildren().add(gridGame.getChildren().size() - 1, currentScene.gridGame);
+
+                isAnswering = true;
+                ProgressBar currentPlayerBar = (userTurn == 1 ? p1HealthBar : p2HealthBar);
+
+                Task<Void> takeHealthOverTime = new Task<Void>() {
+                        @Override
+                        public Void call() throws InterruptedException {
+                                while(isAnswering){
+                                        currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.02f);
+                                        currentPlayerBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
+
+                                        if(currentPlayer.getHealth() == 0){
+                                                isAnswering = false;
+                                                System.out.println("Jogador '" + currentUser.getName() + "' Perdeu!");
+                                        }
+                                        Thread.sleep(1000);
+                                }
+                                return null;
+                        }
+                };
+
+                Thread thread = new Thread(takeHealthOverTime);
+                thread.setDaemon(true);
+                thread.start();
         }
 
         public void Reset() {
@@ -237,14 +266,14 @@ public class Game {
         }
 
         public void Answer(Question currentQuestion, QuestionScene questionScene) {
+                isAnswering = false;
                 Player currentPlayer = userTurn == 1 ? player_1 : player_2;
                 if (!isCorrect) {
                         currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.05f);
-                        if(userTurn == 1){
-                                p1HealthBar.setProgress(currentPlayer.getHealth()/currentPlayer.getTotalHealth());
-                        }
-                        else{
-                                p2HealthBar.setProgress(currentPlayer.getHealth()/currentPlayer.getTotalHealth());
+                        if (userTurn == 1) {
+                                p1HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
+                        } else {
+                                p2HealthBar.setProgress(currentPlayer.getHealth() / currentPlayer.getTotalHealth());
                         }
                 }
 

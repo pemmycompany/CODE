@@ -57,11 +57,13 @@ public class CreateUser {
     }
 
     private void SetCreateUser() {
+        scene.getStylesheets().add("/Assets/Styles/createuser.css");
 
         primaryStage.setTitle("Cadastro dos Jogadores");
         // Adiciona padding (margem interior) no painel de 15px
         gridGame.setStyle("-fx-padding: 80;");
         gridGame.setAlignment(Pos.CENTER);
+        gridGame.getStyleClass().add("imgbackcreat");
 
         // Jogador 1 vs Jogador 2_______________________________________________________
 

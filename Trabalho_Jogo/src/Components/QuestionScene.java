@@ -1,13 +1,16 @@
 package Components;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import Components.*;
 import Scenes.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +36,7 @@ public class QuestionScene {
     int selectedOption;
     boolean chosed = false;
     boolean isCorrect;
+    boolean confirmed = false;
     QuestionScene thisScene = this;
 
     public QuestionScene(Game game, Question sceneQuestion) {
@@ -46,6 +50,7 @@ public class QuestionScene {
 
     public void SetQuestion() {
         isCorrect = false;
+        String[] optionsPrefix = new String[] { "A) ", "B) ", "C) ", "D) ", "E) " };
 
         var onEnter = new EventHandler<MouseEvent>() {
             @Override
@@ -68,19 +73,99 @@ public class QuestionScene {
             public void handle(MouseEvent e) {
                 if (chosed)
                     return;
+
                 Text target = ((Text) e.getTarget());
                 selectedOption = Integer.parseInt(target.getId());
 
-                chosed = true;
+                Parent root;
+                try {
+                    VBox grid = new VBox(5);
+                    grid.setAlignment(Pos.CENTER);
+                    Label lblConfirm = new Label(
+                            "Tem certeza que deseja marcar a alternativa '" +
+                                    optionsPrefix[selectedOption] + "'?");
 
-                isCorrect = sceneQuestion.getOptions().get(selectedOption).isAnswer();
-                if (isCorrect) {
-                    target.setFill(Color.rgb(0, 180, 17));
-                } else {
-                    target.setFill(Color.rgb(200, 23, 23));
+                    HBox btnRow = new HBox();
+                    btnRow.setAlignment(Pos.CENTER);
+                    btnRow.setSpacing(10);
+                    Button btnConfirm = new Button("Sim");
+                    Button btnCancel = new Button("Cancelar");
+                    btnRow.getChildren().addAll(btnCancel, btnConfirm);
+
+                    grid.getChildren().addAll(lblConfirm, btnRow);
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Aviso");
+                    stage.setScene(new Scene(grid, 400, 150));
+                    stage.show();
+
+                    btnConfirm.setOnAction(ev -> {
+                        game.Answer(sceneQuestion, thisScene);
+                        stage.close();
+                        isCorrect = sceneQuestion.getOptions().get(selectedOption).isAnswer();
+                        
+                        if (isCorrect) {
+                            target.setFill(Color.rgb(0, 180, 17));
+                        } else {
+                            target.setFill(Color.rgb(200, 23, 23));
+                        }
+                        confirmed = true;
+                        chosed = true;
+
+                        VBox feedbackGrid = new VBox(5);
+                        feedbackGrid.setAlignment(Pos.CENTER);
+                        Text lblFeedback = new Text(
+                                isCorrect ? "Parabens! Resposta Correta!" : "Resposta incorreta.");
+                        lblFeedback.setFont(Font.font("Calibri", 23));
+                        lblFeedback.setFill(Color.rgb(73, 160, 204));
+
+                        Text fbQuestion = new Text(sceneQuestion.getText());
+                        fbQuestion.setFont(Font.font("Calibri", 15));
+                        fbQuestion.setFill(Color.rgb(42, 95, 122));
+                        fbQuestion.setWrappingWidth(400);
+
+                        Option correctOption = sceneQuestion.getOptions().stream()
+                                .filter(op -> op.isAnswer())
+                                .findAny()
+                                .orElse(null);
+
+                        Label correctAnswer = new Label("Resposta Correta:");
+                        Label fbCorrectOption = new Label(
+                                optionsPrefix[sceneQuestion.getOptions().indexOf(correctOption)] +
+                                        correctOption.getText());
+                        fbCorrectOption.setWrapText(true);
+                        fbCorrectOption.setStyle("-fx-text-fill: rgb(24, 146, 35)");
+
+                        Button btnOk = new Button("Ok");
+
+                        feedbackGrid.getChildren().add(lblFeedback);
+                        if (!isCorrect) {
+                            feedbackGrid.getChildren().addAll(fbQuestion, correctAnswer, fbCorrectOption);
+                        }
+                        feedbackGrid.getChildren().add(btnOk);
+
+                        Stage feedbackStage = new Stage();
+                        feedbackStage.setTitle(isCorrect ? "Parabens!" : "Que pena...");
+                        feedbackStage.setScene(new Scene(feedbackGrid, 500, 150));
+                        feedbackStage.show();
+
+                        btnOk.setOnAction(eve -> {
+                            feedbackStage.close();
+                            game.isCorrect = isCorrect;
+                        });
+                    });
+
+                    btnCancel.setOnAction(ev -> {
+                        confirmed = false;
+                        stage.close();
+                    });
+                } catch (/* IOException */Exception ex) {
+                    ex.printStackTrace();
                 }
-                game.isCorrect = isCorrect;
-                game.Answer(sceneQuestion, thisScene);
+
+                if (!confirmed) {
+                    return;
+                }
             }
         };
 
@@ -91,10 +176,8 @@ public class QuestionScene {
         question.setFont(Font.font("Calibri", 23));
         question.setFill(Color.rgb(73, 160, 204));
         questionBox.getChildren().addAll(question);
-        
-        gridGame.getChildren().add(questionBox);
 
-        String[] optionsPrefix = new String[] { "A) ", "B) ", "C) ", "D) ", "E) " };
+        gridGame.getChildren().add(questionBox);
 
         for (Option option : sceneQuestion.getOptions()) {
             var i = sceneQuestion.getOptions().indexOf(option);
