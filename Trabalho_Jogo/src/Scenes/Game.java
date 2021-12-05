@@ -50,7 +50,7 @@ public class Game {
         boolean isAnswering = false;
         boolean acceptedStop = false;
 
-        public MediaPlayer media;
+        public MediaPlayer gameMedia;
         ArrayList<Question> questions;
 
         QuestionScene currentScene;
@@ -61,103 +61,43 @@ public class Game {
                         player_2 = new Player("", new String[] { "" }, true, 100);
 
         public Game(Stage primaryStage) {
+
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
                 this.primaryStage = primaryStage;
                 gridGame.setStyle("-fx-background-color: gray");
                 gridGame.getStyleClass().add("gameimgback");
                 gridGame.setAlignment(Pos.CENTER);
 
-                questions = new ArrayList<Question>(Arrays.asList(
-                                new Question("Ao definir chaves ________ e _____, voce garante que a integridade dos dados de uma tabela sera mantida.",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("primarias, exclusivas", false),
-                                                                new Option("primarias, secundarias", false),
-                                                                new Option("primarias, estrangeiras", true),
-                                                                new Option("estrangeiras, exclusivas", false)))),
-
-                                new Question("As Caixas de Entidade sao tracadas em um ERD em que formato?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Hardboxe", false),
-                                                                new Option("Losangos", false),
-                                                                new Option("Retangulos", false),
-                                                                new Option("Softboxes ", true)))),
-
-                                new Question("As Entidades de Intersecao estao na extremidade ______ do relacionamento 1:M (Pai:Filho) recem-criado.",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Pai", false),
-                                                                new Option("Filho", true),
-                                                                new Option("Unica", false),
-                                                                new Option("Interrompida", false)))),
-
-                                new Question("Uma coluna ou uma combinacao de colunas em uma tabela que se refere a uma chave primaria na mesma ou em outra tabela.",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Chave Estrangeira", true),
-                                                                new Option("Chave Primaria", false),
-                                                                new Option("Chave Candidata", false),
-                                                                new Option("Superchave", false)))),
-
-                                new Question("A Engenharia _______ e o processo de criacao de um modelo conceitual ou logico extraindo as informacoes de uma fonte de dados existente.",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("De Destino", false),
-                                                                new Option("Reversa", false),
-                                                                new Option("Direta", true),
-                                                                new Option("De Cima para Baixo", false)))),
-
-                                new Question("Os metodos String equals e compareTo realizam funcoes semelhantes e diferem no tipo de retorno. Verdadeiro ou falso?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Verdade ", true),
-                                                                new Option("Falso", false)))),
-
-                                new Question("Qual das alternativas a seguir instancia uma String de nome name para o Oracle?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("String name;", false),
-                                                                new Option("String Oracle='name';", false),
-                                                                new Option("String name='name';", false),
-                                                                new Option("String name='Oracle';", true)))),
-
-                                new Question("Qual das seguintes alternativas poderia ser um motivo para lancar uma excecao?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Voce tem um erro fatal no programa.",
-                                                                                false),
-                                                                new Option("Voce encontrou um Erro de Derramamento de Pilha",
-                                                                                false),
-                                                                new Option("Tornar a interface do usuario mais dificil de navegar.",
-                                                                                false),
-                                                                new Option("Evitar que as excecoes interrompam sem programa.",
-                                                                                true)))),
-
-                                new Question("As variaveis estaticas publicas nao podem ter o valor redefinido por outras classes. Verdadeiro ou falso?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("Verdade", false),
-                                                                new Option("Falso ", true)))),
-
-                                new Question("Qual das alternativas a seguir presume a maneira adequada de definir o tamanho da variavel publica da superclasse igual a cinco de dentro da subclasse?",
-                                                new ArrayList<Option>(Arrays.asList(
-                                                                new Option("super.length(5)", false),
-                                                                new Option("super.length = 5 ", true))))
-
-                ));
+                ResetQuestions();
         }
 
         Question getRandomQuestion() {
-                int rand = new Random().nextInt(questions.size() - 1);
-                return questions.get(rand);
+                if (questions.size() > 0) {
+                        int rand = new Random().nextInt(questions.size());
+                        return questions.get(rand);
+                } else {
+                        return null;
+                }
         }
 
         public void SetGame() {
 
                 String sound = "Assets/Music/Game.wav";
                 Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
-                media = new MediaPlayer(MenuMusic);
+                gameMedia = new MediaPlayer(MenuMusic);
 
-                media.setOnEndOfMedia(new Runnable() {
+                gameMedia.setOnEndOfMedia(new Runnable() {
                         public void run() {
-                                media.seek(Duration.ZERO);
+                                gameMedia.seek(Duration.ZERO);
                         }
                 });
 
                 btnNext.setOnAction(e -> {
-                        NextQuestion();
+                        if (questions.size() > 0 && player_1.getHealth() > 0 && player_2.getHealth() > 0) {
+                                NextQuestion();
+                        } else {
+                                finishGame();
+                        }
                 });
 
                 btnStop.setOnAction(e -> {
@@ -231,13 +171,14 @@ public class Game {
         }
 
         void NextQuestion() {
+                Player currentPlayer = (userTurn == 1 ? player_1 : player_2);
+                ProgressBar currentPlayerBar = (userTurn == 1 ? p1HealthBar : p2HealthBar);
+                btnNext.setDisable(true);
                 if (currentScene != null) {
                         gridGame.getChildren().remove(currentScene.gridGame);
                 }
 
                 userTurn = (userTurn == 1 ? 2 : 1);
-                Player currentPlayer = (userTurn == 1 ? player_1 : player_2);
-                User currentUser = (userTurn == 1 ? user_1 : user_2);
                 playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getName() + "', responda:");
 
                 Question currentQuestion = getRandomQuestion();
@@ -248,38 +189,34 @@ public class Game {
                 gridGame.getChildren().add(gridGame.getChildren().size() - 1, currentScene.gridGame);
 
                 isAnswering = true;
-                ProgressBar currentPlayerBar = (userTurn == 1 ? p1HealthBar : p2HealthBar);
 
                 Task<Void> takeHealthOverTime = new Task<Void>() {
                         @Override
                         public Void call() throws InterruptedException {
                                 while (isAnswering) {
-                                        currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.02f);
+                                        currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.2f);
                                         currentPlayerBar.setProgress(
                                                         currentPlayer.getHealth() / currentPlayer.getTotalHealth());
 
-                                        if (currentPlayer.getHealth() == 0) {
-                                                isAnswering = false;
-                                                System.out.println("Jogador '" + currentUser.getName() + "' Perdeu!");
-                                        }
                                         Thread.sleep(1000);
                                 }
                                 return null;
                         }
                 };
 
-                Thread thread = new Thread(takeHealthOverTime);
-                thread.setDaemon(true);
-                thread.start();
-        }
-
-        public void Reset() {
-                gridGame.getChildren().clear();
+                Thread healthTaker = new Thread(takeHealthOverTime);
+                healthTaker.setDaemon(true);
+                healthTaker.start();
         }
 
         public void Answer(Question currentQuestion, QuestionScene questionScene) {
                 isAnswering = false;
                 Player currentPlayer = userTurn == 1 ? player_1 : player_2;
+                if (currentPlayer.getHealth() == 0) {
+                        finishGame();
+                        return;
+                }
+
                 if (!isCorrect) {
                         currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.05f);
                         if (userTurn == 1) {
@@ -294,19 +231,10 @@ public class Game {
         }
 
         public void RequestStop() {
+                btnReturn.setDisable(true);
+                btnNext.setDisable(true);
                 isAnswering = false;
-                Player currentPlayer = userTurn == 1 ? player_1 : player_2;
-                Player oponentPlayer = userTurn == 2 ? player_1 : player_2;
-                User currentUser = (userTurn == 1 ? user_1 : user_2);
                 User oponentUser = (userTurn == 2 ? user_1 : user_2);
-
-                if (player_1.getHealth() > player_2.getHealth()) {
-                        // vencedor 1
-                } else if (player_1.getHealth() < player_2.getHealth()) {
-                        // vencedor 2
-                } else {
-                        // empate
-                }
 
                 VBox grid = new VBox(5);
                 grid.setAlignment(Pos.CENTER);
@@ -321,32 +249,121 @@ public class Game {
 
                 grid.getChildren().addAll(lblConfirm, btnRow);
 
+                p1HealthBar.setProgress(player_1.getHealth() / player_1.getTotalHealth());
+                p2HealthBar.setProgress(player_2.getHealth() / player_2.getTotalHealth());
+
                 stopStage.setTitle("Pedido de parada");
                 stopStage.setScene(new Scene(grid, 400, 150));
                 stopStage.show();
-
         }
 
         public void DenyStop() {
                 Player currentPlayer = userTurn == 1 ? player_1 : player_2;
                 Player oponentPlayer = userTurn == 2 ? player_1 : player_2;
-                System.out.println("Jogador 1 antes: " + player_1.getHealth());
-                System.out.println("Jogador 2 antes: " + player_2.getHealth());
-                
+
                 float takenHealth = currentPlayer.getTotalHealth() * 0.15f;
                 currentPlayer.takeHealth(takenHealth);
                 oponentPlayer.giveHealth(takenHealth);
                 p1HealthBar.setProgress(player_1.getHealth() / player_1.getTotalHealth());
                 p2HealthBar.setProgress(player_2.getHealth() / player_2.getTotalHealth());
-                
-                System.out.println("Jogador 1 depois: " + player_1.getHealth());
-                System.out.println("Jogador 2 depois: " + player_2.getHealth());
         }
-        
+
         public void ResetGame() {
                 if (btnRow != null) {
                         btnRow.getChildren().clear();
                 }
+                ResetQuestions();
                 gridGame.getChildren().clear();
+                btnReturn.setDisable(false);
+                btnNext.setDisable(false);
+        }
+
+        public void finishGame() {
+                isAnswering = false;
+                btnConfirmStop.fire();
+        }
+
+        public void ResetQuestions() {
+                questions = new ArrayList<Question>(Arrays.asList(
+                                new Question("Ao definir chaves ________ e _____, voce garante que a integridade dos dados de uma tabela sera mantida.",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("primarias, exclusivas", false),
+                                                                new Option("primarias, secundarias", false),
+                                                                new Option("primarias, estrangeiras", true),
+                                                                new Option("estrangeiras, exclusivas", false)))),
+
+                                new Question("As Caixas de Entidade sao tracadas em um ERD em que formato?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Hardboxe", false),
+                                                                new Option("Losangos", false),
+                                                                new Option("Retangulos", false),
+                                                                new Option("Softboxes ", true)))),
+
+                                new Question("As Entidades de Intersecao estao na extremidade ______ do relacionamento 1:M (Pai:Filho) recem-criado.",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Pai", false),
+                                                                new Option("Filho", true),
+                                                                new Option("Unica", false),
+                                                                new Option("Interrompida", false)))),
+
+                                new Question("Uma coluna ou uma combinacao de colunas em uma tabela que se refere a uma chave primaria na mesma ou em outra tabela.",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Chave Estrangeira", true),
+                                                                new Option("Chave Primaria", false),
+                                                                new Option("Chave Candidata", false),
+                                                                new Option(
+                                                                                "Superchave",
+                                                                                false)))),
+
+                                new Question("A Engenharia _______ e o processo de criacao de um modelo conceitual ou logico extraindo as informacoes de uma fonte de dados existente.",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("De Destino", false),
+                                                                new Option("Reversa",
+                                                                                false),
+                                                                new Option("Direta",
+                                                                                true),
+                                                                new Option("De Cima para Baixo", false)))),
+
+                                new Question("Os metodos String equals e compareTo realizam funcoes semelhantes e diferem no tipo de retorno. Verdadeiro ou falso?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Verdade ", true),
+                                                                new Option("Falso",
+                                                                                false)))),
+
+                                new Question("Qual das alternativas a seguir instancia uma String de nome name para o Oracle?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("String name;", false),
+                                                                new Option("String Oracle='name';", false),
+                                                                new Option("String name='name';", false),
+                                                                new Option("String name='Oracle';", true)))),
+
+                                new Question("Qual das seguintes alternativas poderia ser um motivo para lancar uma excecao?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Voce tem um erro fatal no programa.",
+                                                                                false),
+                                                                new Option("Voce encontrou um Erro de Derramamento de Pilha",
+                                                                                false),
+                                                                new Option("Tornar a interface do usuario mais dificil de navegar.",
+                                                                                false),
+                                                                new Option("Evitar que as excecoes interrompam sem programa.",
+                                                                                true)))),
+
+                                new Question("As variaveis estaticas publicas nao podem ter o valor redefinido por outras classes. Verdadeiro ou falso?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option("Verdade",
+                                                                                false),
+                                                                new Option("Falso ",
+                                                                                true)))),
+
+                                new Question("Qual das alternativas a seguir presume a maneira adequada de definir o tamanho da variavel publica da superclasse igual a cinco de dentro da subclasse?",
+                                                new ArrayList<Option>(Arrays.asList(
+                                                                new Option(
+                                                                                "super.length(5)",
+                                                                                false),
+                                                                new Option("super.length = 5 ", true))))
+
+                ));
         }
 }
+
+// |Fim, obrigado por ler 433 linhas de código| (:])

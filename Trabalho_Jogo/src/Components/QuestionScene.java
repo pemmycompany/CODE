@@ -74,11 +74,17 @@ public class QuestionScene {
                 if (chosed)
                     return;
 
+                if (game.player_1.getHealth() <= 0 || game.player_2.getHealth() <= 0) {
+                    game.finishGame();
+                    return;
+                }
+
                 Text target = ((Text) e.getTarget());
                 selectedOption = Integer.parseInt(target.getId());
 
                 Parent root;
                 try {
+                    game.btnReturn.setDisable(true);
                     VBox grid = new VBox(5);
                     grid.setAlignment(Pos.CENTER);
                     Label lblConfirm = new Label(
@@ -104,7 +110,7 @@ public class QuestionScene {
                         game.isCorrect = isCorrect;
                         game.Answer(sceneQuestion, thisScene);
                         stage.close();
-                        
+
                         if (isCorrect) {
                             target.setFill(Color.rgb(0, 180, 17));
                         } else {
@@ -151,11 +157,14 @@ public class QuestionScene {
                         feedbackStage.show();
 
                         btnOk.setOnAction(eve -> {
+                            game.btnReturn.setDisable(false);
+                            game.btnNext.setDisable(false);
                             feedbackStage.close();
                         });
                     });
 
                     btnCancel.setOnAction(ev -> {
+                        game.btnReturn.setDisable(false);
                         confirmed = false;
                         stage.close();
                     });

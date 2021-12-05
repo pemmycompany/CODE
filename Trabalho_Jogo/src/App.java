@@ -65,8 +65,7 @@ public class App extends Application {
         about = new About(primaryStage);
         easter_egg = new Easter_egg(primaryStage);
 
-        selectPlayer = new SelectPlayer(primaryStage);
-        createUser = new CreateUser(primaryStage, selectPlayer);
+        createUser = new CreateUser(primaryStage);
 
         // Atribuindo função aos botões do Menu
         setButtons(primaryStage);
@@ -82,65 +81,90 @@ public class App extends Application {
 
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
-            game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
+
+            /* game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
             game.player_2 = new Player("DeterGente", new String[] { "" }, true, 100f);
             game.ResetGame();
-            game.SetGame();
-            primaryStage.setScene(game.scene);
+            game.SetGame(); */
+
+            primaryStage.setScene(createUser.scene);
         });
 
         game.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
-            game.Reset();
-            game.media.stop();
+            game.ResetGame();
+            createUser.ResetForm();
+            selectPlayer.ResetForm();
+            game.gameMedia.stop();
             menu.mediamenu.play();
             menu.mediamenu.seek(Duration.millis(3000));
         });
         menu.btnTutorial.setOnAction(e -> {
             primaryStage.setScene(tutorial.scene);
             menu.mediamenu.stop();
-            tutorial.media.play();
+            tutorial.tutorialMedia.play();
         });
         tutorial.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
-            tutorial.media.stop();
+            tutorial.tutorialMedia.stop();
             menu.mediamenu.play();
             menu.mediamenu.seek(Duration.millis(3000));
         });
-        menu.btnAbout.setOnAction(e -> primaryStage.setScene(about.scene));
-        about.btnReturn.setOnAction(e -> primaryStage.setScene(menu.scene));
+        menu.btnAbout.setOnAction(e -> {
+            primaryStage.setScene(about.scene);
+            about.aboutMedia.play();
+            menu.mediamenu.stop();
+        });
+        about.btnReturn.setOnAction(e -> {
+            primaryStage.setScene(menu.scene);
+            about.aboutMedia.stop();
+            menu.mediamenu.play();
+        });
+
+        createUser.btnNext.setOnAction(e -> {
+            createUser.create();
+            selectPlayer = new SelectPlayer(primaryStage, createUser.User_01, createUser.User_02);
+
+            selectPlayer.btnReturn.setOnAction(eve -> {
+                primaryStage.setScene(createUser.scene);
+                selectPlayer.ResetForm();
+                createUser.ResetForm();
+            });
+
+            selectPlayer.btnStart.setOnAction(eve -> {
+                game.user_1 = createUser.User_01;
+                game.user_2 = createUser.User_02;
+                game.player_1 = selectPlayer.Players.get(selectPlayer.user01_PlayerID);
+                game.player_2 = selectPlayer.Players.get(selectPlayer.user02_PlayerID);
+                game.ResetGame();
+                game.SetGame();
+                primaryStage.setScene(game.scene);
+                menu.mediamenu.stop();
+                game.gameMedia.play();
+            });
+
+            primaryStage.setScene(selectPlayer.scene);
+        });
+
         createUser.btnReturn.setOnAction(e -> {
             primaryStage.setScene(menu.scene);
-            createUser.ResetForm();
-
-        });
-        selectPlayer.btnReturn.setOnAction(e -> {
-            primaryStage.setScene(createUser.scene);
-            selectPlayer.ResetForm();
             createUser.ResetForm();
         });
 
         animation.btnEgg.setOnAction(e -> {
+            easter_egg = new Easter_egg(primaryStage);
             primaryStage.setScene(easter_egg.scene);
             menu.mediamenu.stop();
-            easter_egg.media.play();
-        });
-        easter_egg.btnReturn.setOnAction(e -> {
-            primaryStage.setScene(menu.scene);
-            easter_egg.media.stop();
-            menu.mediamenu.play();
-            menu.mediamenu.seek(Duration.millis(3000));
-        });
+            easter_egg.easterMedia.play();
+            easter_egg.player.play();
 
-        selectPlayer.btnStart.setOnAction(e -> {
-            game.user_1 = createUser.User_01;
-            game.user_2 = createUser.User_02;
-            game.player_1 = selectPlayer.Players.get(selectPlayer.user01_PlayerID);
-            game.player_2 = selectPlayer.Players.get(selectPlayer.user02_PlayerID);
-            game.SetGame();
-            primaryStage.setScene(game.scene);
-            menu.mediamenu.stop();
-            game.media.play();
+            easter_egg.btnReturn.setOnAction(eva -> {
+                primaryStage.setScene(menu.scene);
+                easter_egg.easterMedia.stop();
+                easter_egg.player.stop();
+                menu.mediamenu.play();
+                menu.mediamenu.seek(Duration.millis(3000));
+            });
         });
 
         game.btnConfirmStop.setOnAction(e -> {
@@ -148,12 +172,14 @@ public class App extends Application {
             scoreBoard.setScore(game.user_1, game.user_2, game.player_1, game.player_2);
             game.stopStage.close();
             primaryStage.setScene(scoreBoard.scene);
-            game.media.stop();
+            game.gameMedia.stop();
             menu.mediamenu.stop();
             scoreBoard.media.play();
 
             scoreBoard.btnReturn.setOnAction(ev -> {
                 game.ResetGame();
+                createUser.ResetForm();
+                selectPlayer.ResetForm();
                 primaryStage.setScene(menu.scene);
                 scoreBoard.media.stop();
                 menu.mediamenu.play();
@@ -166,12 +192,14 @@ public class App extends Application {
             scoreBoard.setScore(game.user_1, game.user_2, game.player_1, game.player_2);
             game.stopStage.close();
             primaryStage.setScene(scoreBoard.scene);
-            game.media.stop();
+            game.gameMedia.stop();
             menu.mediamenu.stop();
             scoreBoard.media.play();
 
             scoreBoard.btnReturn.setOnAction(ev -> {
                 game.ResetGame();
+                createUser.ResetForm();
+                selectPlayer.ResetForm();
                 primaryStage.setScene(menu.scene);
                 scoreBoard.media.stop();
                 menu.mediamenu.play();

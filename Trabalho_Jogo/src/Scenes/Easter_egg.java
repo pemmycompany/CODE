@@ -50,7 +50,9 @@ public class Easter_egg {
     public Scene scene = new Scene(gridEaster_egg, 800, 600);
     public Button btnReturn = new Button("Voltar");
 
-    public MediaPlayer media;
+    public MediaPlayer easterMedia;
+    public MediaPlayer player;
+    public MediaView mediaView;
 
     public Easter_egg(Stage primarystage){
         this.primaryStage = primarystage;
@@ -63,32 +65,34 @@ public class Easter_egg {
         // Adiciona padding (margem interior) no painel de 15px
         gridEaster_egg.setStyle("-fx-padding: 15;");
         gridEaster_egg.setAlignment(Pos.CENTER);
+        gridEaster_egg.setSpacing(10);
 
         // Adicionando video para o grid
         String path = "Assets/Video/Funny.mp4";
         Media videomedia = new Media(Paths.get(path).toUri().toString());
-        MediaPlayer player = new MediaPlayer(videomedia);
-        MediaView mediaView = new MediaView(player);
+        player = new MediaPlayer(videomedia);
+        mediaView = new MediaView(player);
         player.setCycleCount(MediaPlayer.INDEFINITE);
-        player.play();
         
         HBox rowMedia = new HBox(); 
         rowMedia.getChildren().add(mediaView);
         rowMedia.setAlignment(Pos.CENTER);
-        rowMedia.getStyleClass().add("eggboardtitle");
 
+        HBox rowbtn = new HBox(); 
+        rowbtn.getChildren().add(btnReturn);
+        rowbtn.setAlignment(Pos.BOTTOM_CENTER);
 
          // Adiciona todos os controles ao Grid
-        gridEaster_egg.getChildren().addAll(rowMedia, btnReturn);
+        gridEaster_egg.getChildren().addAll(rowMedia, rowbtn);
         gridEaster_egg.getStyleClass().add("imgbackegg");
 
         String sound = "Assets/Music/steveDano.wav";
         Media eggmMedia = new Media(Paths.get(sound).toUri().toString());
-        media = new MediaPlayer(eggmMedia);
+        easterMedia = new MediaPlayer(eggmMedia);
 
-        media.setOnEndOfMedia(new Runnable() {
+        easterMedia.setOnEndOfMedia(new Runnable() {
             public void run() {
-                media.seek(Duration.ZERO);
+                easterMedia.seek(Duration.ZERO);
             }
         });
 

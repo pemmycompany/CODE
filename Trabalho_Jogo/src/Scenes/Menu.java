@@ -30,28 +30,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 public class Menu {
-
-    public static User user_01;
-    public static User user_02;
-
-    public static void SetUser(int number, User user) {
-        if (number == 1) {
-            user_01 = user;
-        }
-        else{
-            user_02 = user;
-        }
-    }
-
-    public static User GetUser(int number) {
-        if (number == 1) {
-            return user_01;
-        }
-        else{
-            return user_02;
-        }
-    }
-
     // Criando variáveis para o rgb do Backgrauond
     int R = 16;
     int G = 16;

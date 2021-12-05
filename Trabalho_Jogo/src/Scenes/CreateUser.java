@@ -29,7 +29,8 @@ public class CreateUser {
     VBox gridGame = new VBox(5);
     public Scene scene = new Scene(gridGame, 800, 600, Color.GRAY);
     public Button btnReturn = new Button("Voltar");
-    SelectPlayer selectPlayer;
+    public Button btnNext = new Button("Salvar");
+    Button btnSubmit;
 
     public User User_01;
     public User User_02;
@@ -38,19 +39,30 @@ public class CreateUser {
     Label lblP2 = new Label("Jogador_2");
     Label title = new Label("Quem vai ser o Jogador 1?");
 
-    boolean isFirstPlayer = false;
+    TextField txtName;
+    TextField txtNickname;
+    TextField txtPhone;
+    TextField txtEmail;
 
-    public CreateUser(Stage primaryStage, SelectPlayer selectPlayer) {
+    HBox btnRow;
+
+    public CreateUser(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.selectPlayer = selectPlayer;
         SetCreateUser();
     }
 
     public void ResetForm() {
         lblP1.setText("Jogador_1");
         lblP2.setText("Jogador_2");
-        isFirstPlayer = true;
         title.setText("Quem vai ser o Jogador 1?");
+
+        txtName.setText("");
+        txtNickname.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+       
+        btnRow.getChildren().clear();
+        btnRow.getChildren().addAll(btnReturn, btnSubmit);
 
         User_01 = null;
         User_02 = null;
@@ -89,7 +101,7 @@ public class CreateUser {
         HBox nameRow = new HBox();
         nameRow.getChildren().add(lblName);
         nameRow.setAlignment(Pos.CENTER_LEFT);
-        TextField txtName = new TextField();
+        txtName = new TextField();
 
         // Apelido_______________________________________________________
         Label lblNickname = new Label("Apelido");
@@ -97,7 +109,7 @@ public class CreateUser {
         HBox nickRow = new HBox();
         nickRow.getChildren().add(lblNickname);
         nickRow.setAlignment(Pos.CENTER_LEFT);
-        TextField txtNickname = new TextField();
+        txtNickname = new TextField();
 
         // Telefone_______________________________________________________
         Label lblPhone = new Label("Telefone");
@@ -105,7 +117,7 @@ public class CreateUser {
         HBox phoneRow = new HBox();
         phoneRow.getChildren().add(lblPhone);
         phoneRow.setAlignment(Pos.CENTER_LEFT);
-        TextField txtPhone = new TextField();
+        txtPhone = new TextField();
 
         // Email_______________________________________________________
         Label lblEmail = new Label("E-mail");
@@ -113,7 +125,7 @@ public class CreateUser {
         HBox emailRow = new HBox();
         emailRow.getChildren().add(lblEmail);
         emailRow.setAlignment(Pos.CENTER_LEFT);
-        TextField txtEmail = new TextField();
+        txtEmail = new TextField();
 
         // Erro_________________________________________________________
         Label lblError = new Label("Preencha todos os campos!");
@@ -121,7 +133,7 @@ public class CreateUser {
         lblError.setStyle("-fx-text-fill: red;");
 
         // Botões_______________________________________________________
-        Button btnSubmit = new Button("Salvar");
+        btnSubmit = new Button("Salvar");
         btnSubmit.setPrefWidth(100);
         btnSubmit.setPrefHeight(40);
         btnSubmit.setFont(Font.font("Calibri", 16));
@@ -129,7 +141,7 @@ public class CreateUser {
         btnReturn.setPrefHeight(40);
         btnReturn.setFont(Font.font("Calibri", 16));
 
-        HBox btnRow = new HBox();
+        btnRow = new HBox();
         btnRow.getChildren().addAll(btnReturn, btnSubmit);
         btnRow.setAlignment(Pos.BOTTOM_CENTER);
         btnRow.setSpacing(10);
@@ -151,31 +163,35 @@ public class CreateUser {
                     gridGame.getChildren().add(10, lblError);
                     return;
                 } else {
-                    if (User_01 == null) {
-                        User_01 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
-                                txtEmail.getText());
-
-                        Menu.SetUser(1, User_01);
-                        lblP1.setText(txtNickname.getText());
-                    } else {
-                        User_02 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
-                                txtEmail.getText());
-                        lblP2.setText(txtNickname.getText());
-
-                        Menu.SetUser(2, User_02);
-
-                        isFirstPlayer = true;
-                        selectPlayer.activate();
-                        primaryStage.setScene(selectPlayer.scene);
-                    }
+                    create();
                     txtName.setText("");
                     txtNickname.setText("");
                     txtPhone.setText("");
                     txtEmail.setText("");
                     title.setText("Quem vai ser o Jogador 2?");
+
+                    btnRow.getChildren().remove(btnSubmit);
+
+                    btnNext.setPrefWidth(100);
+                    btnNext.setPrefHeight(40);
+                    btnNext.setFont(Font.font("Calibri", 16));
+                    btnRow.getChildren().add(btnNext);
                 }
             }
         });
 
+    }
+
+    public void create() {
+        if (User_01 == null) {
+            User_01 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
+                    txtEmail.getText());
+
+            lblP1.setText(txtNickname.getText());
+        } else {
+            User_02 = new User(txtName.getText(), txtNickname.getText(), txtPhone.getText(),
+                    txtEmail.getText());
+            lblP2.setText(txtNickname.getText());
+        }
     }
 }

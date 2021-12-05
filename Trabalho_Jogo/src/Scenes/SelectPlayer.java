@@ -2,7 +2,6 @@ package Scenes;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
 import Components.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,7 +57,9 @@ public class SelectPlayer {
 
         public int currentPlayer = 1;
 
-        public SelectPlayer(Stage primaryStage) {
+        public SelectPlayer(Stage primaryStage, User user1, User user2) {
+                lblP1.setText(user1.getNickName());
+                lblP2.setText(user2.getNickName());
                 scene.getStylesheets().add("Assets/Styles/selectPlayer.css");
                 this.primaryStage = primaryStage;
                 setPlayer();
@@ -67,14 +68,14 @@ public class SelectPlayer {
                                 100.0f));
                 Players.add(new Player("DeterGente & 'P'", new String[] { "Detêm qualquer gente",
                                 "Perde mais vida ao errar consecutivamente ", "Pode retirar uma alternativa" }, true,
-                                105.0f));
+                                100.0f));
                 Players.add(new Player("Lysoformador",
                                 new String[] { "Agilidade", "Ganha 2 de vida a cada acerto",
                                                 "perde 2.5 de vida a cada erro" },
                                 true,
                                 100.0f));
                 Players.add(new Player("MrMusculoso", new String[] { "Super Forte", "Remove toda a Gordura", "Barato" },
-                                true, 150.0f));
+                                true, 100.0f));
                 Players.add(new Player("PinhoSolar",
                                 new String[] { "Radiante", "Sanitario", "Retarda qualquer inseto" },
                                 true, 100.0f));
@@ -96,10 +97,10 @@ public class SelectPlayer {
                 lblP2.setStyle("-fx-text-fill: rgb(183, 21, 21);");
 
                 lblSel1.setFont(Font.font("Calibri", 15));
-                lblSel1.setStyle("-fx-text-fill: rgb(175, 19, 19); -fx-padding: 3");
+                lblSel1.setStyle("-fx-text-fill: rgb(20, 25, 195); -fx-padding: 3");
 
                 lblSel2.setFont(Font.font("Calibri", 15));
-                lblSel2.setStyle("-fx-text-fill: rgb(20, 25, 195); -fx-padding: 3");
+                lblSel2.setStyle("-fx-text-fill: rgb(175, 19, 19); -fx-padding: 3");
 
                 lblSelectionTurn.setFont(Font.font("Calibri", 30));
 
@@ -259,7 +260,7 @@ public class SelectPlayer {
                         @Override
                         public void handle(MouseEvent e) {
                                 /* resetHoveredPlayer(((VBox) e.getTarget()).getId()); */
-                                resetHoveredPlayer(((ImageView) e.getTarget()).getId());
+                                /* resetHoveredPlayer(((ImageView) e.getTarget()).getId()); */
                         }
                 };
 
@@ -296,11 +297,6 @@ public class SelectPlayer {
                 PinhoSol.addEventHandler(MouseEvent.MOUSE_CLICKED, onClick);
         }
 
-        public void activate() {
-                lblP1.setText(Menu.GetUser(1).getName());
-                lblP2.setText(Menu.GetUser(2).getName());
-        }
-
         void setHoveredPlayer(ImageView hovered) {
                 var id = Integer.parseInt(hovered.getId());
                 var player = Players.get(id);
@@ -316,10 +312,6 @@ public class SelectPlayer {
                 }
                 lblSkills.setText(skills.substring(0, skills.length() - 2) + ".");
                 lblHealth.setText(Float.toString(player.getHealth()));
-        }
-
-        void resetHoveredPlayer(String _id) {
-                var id = Integer.parseInt(_id);
         }
 
         void setSelectedPlayer(ImageView hovered) {
@@ -387,6 +379,17 @@ public class SelectPlayer {
                 user01_PlayerID = 0;
                 user02_PlayerID = 0;
                 currentPlayer = 1;
+                lastSelected = null;
+                btnRow.getChildren().clear();
+                panels.getChildren().clear();
+                gridGame.getChildren().clear();
+
+                btnRow.getChildren().clear();
+                btnRow.getChildren().addAll(btnReturn, btnSubmit);
+
+                for (Player player : Players) {
+                        player.setStatus(false);
+                }
 
                 for (Node player : row1.getChildren()) {
                         ((VBox) player).getStyleClass().remove("pickedIMG");
@@ -401,4 +404,3 @@ public class SelectPlayer {
         }
 }
 
-// Linha não encontrada

@@ -37,7 +37,7 @@ public class Tutorial {
     public Scene scene = new Scene(gridTutorial, 800, 600);
     public Button btnReturn = new Button("Voltar ao menu principal");
 
-    public MediaPlayer media;
+    public MediaPlayer tutorialMedia;
 
     public Tutorial(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -54,11 +54,11 @@ public class Tutorial {
 
         String sound = "Assets/Music/Tutorial.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
-        media = new MediaPlayer(MenuMusic);
+        tutorialMedia = new MediaPlayer(MenuMusic);
 
-        media.setOnEndOfMedia(new Runnable() {
+        tutorialMedia.setOnEndOfMedia(new Runnable() {
             public void run() {
-                media.seek(Duration.ZERO);
+                tutorialMedia.seek(Duration.ZERO);
             }
         });
 

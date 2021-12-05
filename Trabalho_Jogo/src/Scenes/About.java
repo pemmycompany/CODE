@@ -18,6 +18,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.text.Text;
 import javafx.geometry.Pos;
 
@@ -26,6 +27,9 @@ public class About {
     VBox gridAbout = new VBox();
     public Scene scene = new Scene(gridAbout, 800, 600);
     public Button btnReturn = new Button("Voltar ao menu principal");
+
+    public MediaPlayer aboutMedia;
+    public MediaView mediaViewTwo;
 
     public About(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -43,13 +47,13 @@ public class About {
         String path2 = "Assets/Video/memedance.mp4";
         Media videomedia2 = new Media(Paths.get(path2).toUri().toString());
         MediaPlayer player = new MediaPlayer(videomedia2);
-        MediaView mediaView2 = new MediaView(player);
+        mediaViewTwo = new MediaView(player);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         player.play();
 
-        HBox rowMedia = new HBox();
-        rowMedia.getChildren().add(mediaView2);
-        rowMedia.setAlignment(Pos.CENTER);
+        HBox rowMediaTwo = new HBox();
+        rowMediaTwo.getChildren().add(mediaViewTwo);
+        rowMediaTwo.setAlignment(Pos.CENTER);
 
         Label title = new Label();
         title.setText("Sobre os devs");
@@ -72,8 +76,19 @@ public class About {
         btnRow.getChildren().addAll(btnReturn);
         btnRow.setAlignment(Pos.BOTTOM_CENTER);
 
+        String aboutsound = "Assets/Music/dubstep.wav";
+        Media aboutMusic = new Media(Paths.get(aboutsound).toUri().toString());
+        aboutMedia = new MediaPlayer(aboutMusic);
+        aboutMedia.setVolume(0.1);
+
+        aboutMedia.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                aboutMedia.seek(Duration.ZERO);
+            }
+        });
+
         // Adiciona todos os controles ao Grid
-        gridAbout.getChildren().addAll(rowTitle, lineLabel, rowMedia, btnRow );
+        gridAbout.getChildren().addAll(rowTitle, lineLabel, rowMediaTwo, btnRow );
     }
 
 }

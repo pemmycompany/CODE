@@ -3,14 +3,16 @@
     -fx-background-size: cover;
 }
 
-.playerPodiumBorderOne{
+
+/* .playerPodiumBorderOne {
     fx-padding: 10;
     -fx-border-color: blue;
     -fx-border-style: solid inside;
     -fx-border-width: 2;
     -fx-border-radius: 20;
-}
-.playerPodiumBorderTwo{
+} */
+
+.playerPodiumBorderTwo {
     fx-padding: 10;
     -fx-border-color: red;
     -fx-border-style: solid inside;
@@ -18,3 +20,10 @@
     -fx-border-radius: 20;
 }
 
+.red-podiumBar {
+    -fx-accent: rgb(255, 0, 0);
+}
+
+.blue-podiumBar {
+    -fx-accent: rgb(0, 0, 255);
+}

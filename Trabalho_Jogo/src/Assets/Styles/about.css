@@ -14,10 +14,9 @@
         -fx-background-image: url("/Assets/IMG/secrect.jpg");
         -fx-background-size: cover;
     }
-    
-    .eggbordtitle {
+    /* .eggbordtitle {
         -fx-border-color: rgb(255, 255, 255);
         -fx-border-style: solid inside;
         -fx-max-width: 3;
         -fx-max-height: 3;
-    }
+    } */
