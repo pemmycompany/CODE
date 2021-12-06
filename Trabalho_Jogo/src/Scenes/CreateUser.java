@@ -38,6 +38,7 @@ public class CreateUser {
     Label lblP1 = new Label("Jogador_1");
     Label lblP2 = new Label("Jogador_2");
     Label title = new Label("Quem vai ser o Jogador 1?");
+    Label lblError;
 
     TextField txtName;
     TextField txtNickname;
@@ -60,7 +61,7 @@ public class CreateUser {
         txtNickname.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
-       
+
         btnRow.getChildren().clear();
         btnRow.getChildren().addAll(btnReturn, btnSubmit);
 
@@ -128,7 +129,7 @@ public class CreateUser {
         txtEmail = new TextField();
 
         // Erro_________________________________________________________
-        Label lblError = new Label("Preencha todos os campos!");
+        lblError = new Label("Preencha todos os campos!");
         lblError.setFont(Font.font("Calibri", 15));
         lblError.setStyle("-fx-text-fill: red;");
 
@@ -153,16 +154,9 @@ public class CreateUser {
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!lblError.getText().isEmpty()) {
-                    gridGame.getChildren().remove(lblError);
-                }
+                System.out.println("Clicked");
 
-                if (txtName.getText().isEmpty() || txtNickname.getText().isEmpty() || txtPhone.getText().isEmpty()
-                        || txtEmail.getText().isEmpty()) {
-
-                    gridGame.getChildren().add(10, lblError);
-                    return;
-                } else {
+                if (validateFields()) {
                     create();
                     txtName.setText("");
                     txtNickname.setText("");
@@ -193,5 +187,21 @@ public class CreateUser {
                     txtEmail.getText());
             lblP2.setText(txtNickname.getText());
         }
+    }
+
+    public boolean validateFields() {
+        var isValidated = !(txtName.getText().isEmpty() || txtNickname.getText().isEmpty()
+                || txtPhone.getText().isEmpty()
+                || txtEmail.getText().isEmpty());
+
+        if (!lblError.getText().isEmpty()) {
+            gridGame.getChildren().remove(lblError);
+        }
+
+        if (!isValidated) {
+            gridGame.getChildren().add(10, lblError);
+        }
+
+        return isValidated;
     }
 }

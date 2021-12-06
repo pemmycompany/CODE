@@ -194,7 +194,7 @@ public class Game {
                         @Override
                         public Void call() throws InterruptedException {
                                 while (isAnswering) {
-                                        currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.2f);
+                                        currentPlayer.takeHealth(currentPlayer.getTotalHealth() * 0.02f);
                                         currentPlayerBar.setProgress(
                                                         currentPlayer.getHealth() / currentPlayer.getTotalHealth());
 

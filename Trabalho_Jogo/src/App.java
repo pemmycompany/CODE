@@ -122,6 +122,7 @@ public class App extends Application {
         });
 
         createUser.btnNext.setOnAction(e -> {
+            if(!createUser.validateFields()){return;}
             createUser.create();
             selectPlayer = new SelectPlayer(primaryStage, createUser.User_01, createUser.User_02);
 
