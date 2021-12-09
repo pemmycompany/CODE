@@ -153,7 +153,7 @@ public class Game {
                 userTurn = new Random().nextInt(3) + 1;
                 User firstUser = (userTurn == 1 ? user_1 : user_2);
 
-                playerTurn = new Label("Jogador '" + firstUser.getNickName()) + "', responda:");
+                playerTurn = new Label("Jogador '" + firstUser.getNickName() + "', responda:");
                 playerTurn.setFont(Font.font("Calibri", 25));
                 playerTurn.setStyle("-fx-text-fill: white; -fx-padding: 20");
 
@@ -168,6 +168,7 @@ public class Game {
         }
 
         void NextQuestion() {
+                playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getNickName() + "', responda:");
                 Player currentPlayer = (userTurn == 1 ? player_1 : player_2);
                 ProgressBar currentPlayerBar = (userTurn == 1 ? p1HealthBar : p2HealthBar);
                 btnNext.setDisable(true);
@@ -176,7 +177,6 @@ public class Game {
                 }
 
                 userTurn = (userTurn == 1 ? 2 : 1);
-                playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getName() + "', responda:");
 
                 Question currentQuestion = getRandomQuestion();
                 currentScene = new QuestionScene(this, currentQuestion);
@@ -236,7 +236,7 @@ public class Game {
                 VBox grid = new VBox(5);
                 grid.setAlignment(Pos.CENTER);
                 Label lblConfirm = new Label(
-                                "Jogador '" + oponentUser.getName()
+                                "Jogador '" + oponentUser.getNickName()
                                                 + "', deseja encerrar o jogo?");
 
                 HBox btnRow = new HBox();
