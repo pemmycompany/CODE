@@ -1,50 +1,23 @@
 package Scenes;
 
-import java.nio.file.Paths;
-import java.security.PublicKey;
-
-import javax.xml.crypto.dsig.TransformService;
-
-import Components.User;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
-import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.Scene;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.media.Media;
-import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 
 public class MenuAnimation {
 
     public Button btnEgg = new Button("?");
-    public Circle circle = new Circle();
-    public Circle circle3 = new Circle();
+    public Circle blackCircle = new Circle();
+    public Circle whiteCircle = new Circle();
     // public Circle circle3Circle = new Circle();
 
     public MenuAnimation(Stage primarStage){
@@ -54,8 +27,8 @@ public class MenuAnimation {
     public void setMenuAnimation(){
 
        //Circulo um Preto
-        circle.setFill(Color.BLACK);
-        circle.setRadius(6);
+       blackCircle.setFill(Color.BLACK);
+       blackCircle.setRadius(6);
 
         final Duration SecondsOne = Duration.millis(2000);
         final Duration SecondsTwo = Duration.millis(2000);
@@ -71,7 +44,7 @@ public class MenuAnimation {
         transition.setFromX(-100f);
         transition.setToX(100);
         transition.setCycleCount(Animation.INDEFINITE);
-        transition.setNode(circle);
+        transition.setNode(blackCircle);
         transition.play();
         //Rotação do Circulo
         RotateTransition rotTrans = new RotateTransition(SecondsTwo);
@@ -83,14 +56,14 @@ public class MenuAnimation {
         scalTrans.setByY(1.5f);
         scalTrans.setCycleCount(2);
         
-        Circle circle2 = new Circle(250);
-        circle2.setFill(Color.WHITE);
-        circle2.setLayoutX(0);
-        circle2.setLayoutY(-100);
+        Circle modelCircle = new Circle(250);
+        modelCircle.setFill(Color.WHITE);
+        modelCircle.setLayoutX(0);
+        modelCircle.setLayoutY(-100);
 
         PathTransition patTrans = new PathTransition();
-        patTrans.setNode(circle);
-        patTrans.setPath(circle2);
+        patTrans.setNode(blackCircle);
+        patTrans.setPath(modelCircle);
         patTrans.setDuration(Duration.seconds(1));
         patTrans.setCycleCount(Animation.INDEFINITE);
         patTrans.play();
@@ -98,8 +71,8 @@ public class MenuAnimation {
       
         //Circulo dois Branco
 
-        circle3.setFill(Color.WHITE);
-        circle3.setRadius(6);
+        whiteCircle.setFill(Color.WHITE);
+        whiteCircle.setRadius(6);
 
         final Duration SecondsThree = Duration.millis(2000);
         final Duration SecondsFour = Duration.millis(2000);
@@ -115,7 +88,7 @@ public class MenuAnimation {
         transition2.setFromX(-100f);
         transition2.setToX(100);
         transition2.setCycleCount(Animation.INDEFINITE);
-        transition2.setNode(circle3);
+        transition2.setNode(whiteCircle);
         transition2.play();
 
         RotateTransition rotTrans3 = new RotateTransition(SecondsFour);
@@ -128,15 +101,15 @@ public class MenuAnimation {
         scalTrans3.setByY(1.5f);
         scalTrans3.setCycleCount(2);
 
-        Circle circle4 = new Circle(250);
-        circle4.setFill(Color.WHITE);
-        circle4.setLayoutX(0);
-        circle4.setLayoutY(-100);
-        circle4.setNodeOrientation(null);
+        Circle modelCircle1 = new Circle(250);
+        modelCircle1.setFill(Color.WHITE);
+        modelCircle1.setLayoutX(0);
+        modelCircle1.setLayoutY(-100);
+        modelCircle1.setNodeOrientation(null);
 
         PathTransition patTrans3 = new PathTransition();
-        patTrans3.setNode(circle3);
-        patTrans3.setPath(circle4);
+        patTrans3.setNode(whiteCircle);
+        patTrans3.setPath(modelCircle1);
         patTrans3.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         patTrans3.setDuration(Duration.seconds(1));
         patTrans3.setCycleCount(Animation.INDEFINITE);

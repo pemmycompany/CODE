@@ -1,27 +1,20 @@
 package Scenes;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
-import Components.*;
+import Components.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class CreateUser {
 
@@ -73,10 +66,8 @@ public class CreateUser {
         scene.getStylesheets().add("/Assets/Styles/createuser.css");
 
         primaryStage.setTitle("Cadastro dos Jogadores");
-        // Adiciona padding (margem interior) no painel de 15px
         gridGame.setStyle("-fx-padding: 80;");
         gridGame.setAlignment(Pos.CENTER);
-        /* gridGame.getStyleClass().add("imgbackcreate"); */
 
         // Jogador 1 vs Jogador 2_______________________________________________________
 

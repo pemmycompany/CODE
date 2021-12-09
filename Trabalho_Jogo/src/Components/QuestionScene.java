@@ -1,31 +1,20 @@
 package Components;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import Components.*;
 import Scenes.Game;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.text.Text;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class QuestionScene {
     // Criando um estágio
@@ -82,7 +71,6 @@ public class QuestionScene {
                 Text target = ((Text) e.getTarget());
                 selectedOption = Integer.parseInt(target.getId());
 
-                Parent root;
                 try {
                     game.btnReturn.setDisable(true);
                     VBox grid = new VBox(5);

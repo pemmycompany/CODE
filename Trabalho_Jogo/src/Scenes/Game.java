@@ -5,29 +5,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import Components.*;
-import javafx.application.Application;
+import Components.Option;
+import Components.Player;
+import Components.Question;
+import Components.QuestionScene;
+import Components.User;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.text.Text;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import java.util.ResourceBundle;
 
 public class Game {
         // Criando um estágio
@@ -121,8 +118,8 @@ public class Game {
                 titleVs.setEffect(lightShadow);
                 titleVs.setStyle("-fx-text-fill: rgb(223, 186, 35)");
                 titleVs.setFont(Font.font("castellar", 50));
-                Label user1Name = new Label(user_1.getName());
-                Label user2Name = new Label(user_2.getName());
+                Label user1Name = new Label(user_1.getNickName());
+                Label user2Name = new Label(user_2.getNickName());
 
                 user1Name.setFont(Font.font("Calibri", 25));
                 user1Name.setStyle("-fx-text-fill: rgb(31, 42, 178); -fx-padding: 3");
@@ -156,7 +153,7 @@ public class Game {
                 userTurn = new Random().nextInt(3) + 1;
                 User firstUser = (userTurn == 1 ? user_1 : user_2);
 
-                playerTurn = new Label("Jogador '" + firstUser.getName() + "', responda:");
+                playerTurn = new Label("Jogador '" + firstUser.getNickName()) + "', responda:");
                 playerTurn.setFont(Font.font("Calibri", 25));
                 playerTurn.setStyle("-fx-text-fill: white; -fx-padding: 20");
 
@@ -365,5 +362,3 @@ public class Game {
                 ));
         }
 }
-
-// |Fim, obrigado por ler 433 linhas de código| (:])
