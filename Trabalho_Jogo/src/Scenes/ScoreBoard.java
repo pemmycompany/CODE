@@ -51,6 +51,9 @@ public class ScoreBoard {
         gridScoreBoard.setAlignment(Pos.TOP_CENTER);
         gridScoreBoard.getStyleClass().add("imgpodiumcreate");
 
+        Label lblWinnerTitle = new Label("Vencedor:");
+        Text lblWinner = new Text();
+
         Text p1Name = new Text(user1.getName());
         Text p2Name = new Text(user2.getName());
         Text p1Player = new Text(player1.getName());
