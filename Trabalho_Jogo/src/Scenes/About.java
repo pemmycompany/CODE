@@ -33,7 +33,7 @@ public class About {
 
         scene.getStylesheets().add("Assets/Styles/about.css");
         gridAbout.getStyleClass().add("imgback");
-        // gridAbout.setStyle("-fx-padding: 15; -fx-background: black");
+        
         gridAbout.setSpacing(5);
         gridAbout.setAlignment(Pos.CENTER);
 

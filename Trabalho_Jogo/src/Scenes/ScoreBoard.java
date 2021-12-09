@@ -8,13 +8,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -54,39 +57,58 @@ public class ScoreBoard {
         Label lblWinnerTitle = new Label("Vencedor:");
         Text lblWinner = new Text();
 
-        Text p1Name = new Text(user1.getName());
-        Text p2Name = new Text(user2.getName());
+        DropShadow yellowShadow = new DropShadow();
+        yellowShadow.setOffsetY(3.0f);
+        yellowShadow.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        lblWinnerTitle.setStyle("-fx-font: 24 castellar; -fx-text-fill: yellow");
+        lblWinnerTitle.setEffect(yellowShadow);
+        lblWinnerTitle.setFont(Font.font(null, FontWeight.BOLD, 30));
+
+        lblWinner.setFont(Font.font("calibri",FontWeight.BOLD, 40));
+        lblWinner.setFill(Color.rgb(255, 255, 255));
+
+        if(player1.getHealth() > player2.getHealth()){
+            lblWinner.setText(user1.getNickName());
+        }
+        else if(player1.getHealth() < player2.getHealth()){
+            lblWinner.setText(user2.getNickName());
+        }
+        else{
+            lblWinner.setText("Jogo empatado!");
+            lblWinnerTitle.setText("");
+        }
+
+        Text p1Name = new Text(user1.getNickName());
+        Text p2Name = new Text(user2.getNickName());
         Text p1Player = new Text(player1.getName());
         Text p2Player = new Text(player2.getName());
         Text p1Health = new Text(Float.toString(player1.getHealth()));
         Text p2Health = new Text(Float.toString(player2.getHealth()));
 
-        p1Name.setStyle("-fx-text-fill: rgb(255, 255, 255)");
         p1Name.setFont(Font.font("arial", 20));
-        p1Name.setFill(Color.rgb(22, 28, 202));
+        p1Name.setFill(Color.rgb(80, 80, 255));
 
-        p1Player.setFill(Color.rgb(22, 28, 202));
+        p1Player.setFill(Color.rgb(80, 80, 255));
         p1Player.setFont(Font.font("arial", 15));
 
         p1Health.setStyle("-fx-text-fill: rgb(255, 255, 255)");
         p1Health.setFont(Font.font("arial", 20));
-        p1Health.setFill(Color.rgb(22, 28, 202));
+        p1Health.setFill(Color.rgb(80, 80, 255));
         
-
-        p2Name.setStyle("-fx-text-fill: rgb(255, 255, 255)");
         p2Name.setFont(Font.font("arial", 20));
-        p2Name.setFill(Color.rgb(183, 21, 21));
+        p2Name.setFill(Color.rgb(255, 80, 80));
 
-        p2Player.setFill(Color.rgb(183, 21, 21));
+        p2Player.setFill(Color.rgb(255, 80, 80));
         p2Player.setFont(Font.font("arial", 15));
 
-        p2Health.setStyle("-fx-text-fill: rgb(255, 255, 255)");
         p2Health.setFont(Font.font("arial", 20));
-        p2Health.setFill(Color.rgb(183, 21, 21));
+        p2Health.setFill(Color.rgb(255, 80, 80));
 
         p1HealthBar.getStyleClass().add("blue-podiumBar");
         p2HealthBar.getStyleClass().add("red-podiumBar");
         HBox btnBox = new HBox();
+        btnBox.setPrefHeight(200);
         btnBox.getChildren().add(btnReturn);
         btnBox.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -104,7 +126,7 @@ public class ScoreBoard {
         board.setPadding(new Insets(20));
 
         // Adiciona todos os controles ao Grid
-        gridScoreBoard.getChildren().addAll(board, btnBox);
+        gridScoreBoard.getChildren().addAll(lblWinnerTitle, lblWinner, board, btnBox);
 
         String sound = "Assets/Music/backgroundpodium.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());

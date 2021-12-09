@@ -168,6 +168,7 @@ public class Game {
         }
 
         void NextQuestion() {
+                userTurn = (userTurn == 1 ? 2 : 1);
                 playerTurn.setText("Jogador '" + (userTurn == 1 ? user_1 : user_2).getNickName() + "', responda:");
                 Player currentPlayer = (userTurn == 1 ? player_1 : player_2);
                 ProgressBar currentPlayerBar = (userTurn == 1 ? p1HealthBar : p2HealthBar);
@@ -176,7 +177,6 @@ public class Game {
                         gridGame.getChildren().remove(currentScene.gridGame);
                 }
 
-                userTurn = (userTurn == 1 ? 2 : 1);
 
                 Question currentQuestion = getRandomQuestion();
                 currentScene = new QuestionScene(this, currentQuestion);

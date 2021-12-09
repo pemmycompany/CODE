@@ -18,7 +18,7 @@ public class MenuAnimation {
     public Button btnEgg = new Button("?");
     public Circle blackCircle = new Circle();
     public Circle whiteCircle = new Circle();
-    // public Circle circle3Circle = new Circle();
+    
 
     public MenuAnimation(Stage primarStage){
         setMenuAnimation();
@@ -33,12 +33,13 @@ public class MenuAnimation {
         final Duration SecondsOne = Duration.millis(2000);
         final Duration SecondsTwo = Duration.millis(2000);
 
+        // FadeTransition controla a opacidade do node
         FadeTransition fadeTrans = new FadeTransition(SecondsTwo);
         fadeTrans.setFromValue(1.0f);
         fadeTrans.setToValue(0.3f);
         fadeTrans.setCycleCount(2);
-        // fadeTrans.setAutoReverse(true);
 
+        // O TranslateTransition move um node
         TranslateTransition transition = new TranslateTransition(SecondsOne);
         transition.setDuration(Duration.seconds(1));
         transition.setFromX(-100f);
@@ -46,11 +47,13 @@ public class MenuAnimation {
         transition.setCycleCount(Animation.INDEFINITE);
         transition.setNode(blackCircle);
         transition.play();
-        //Rotação do Circulo
+
+        // Criamos o objeto de rotação
         RotateTransition rotTrans = new RotateTransition(SecondsTwo);
         rotTrans.setByAngle(-100f);
         rotTrans.setCycleCount(2);
-        //Tamanho da rotação do Circulo
+
+        // Criamos o objeto responsável pela animação
         ScaleTransition scalTrans = new ScaleTransition(SecondsOne);
         scalTrans.setByX(1.5f);
         scalTrans.setByY(1.5f);
@@ -61,6 +64,7 @@ public class MenuAnimation {
         modelCircle.setLayoutX(0);
         modelCircle.setLayoutY(-100);
 
+        //Permite que o circulo siga o caminho correto
         PathTransition patTrans = new PathTransition();
         patTrans.setNode(blackCircle);
         patTrans.setPath(modelCircle);
@@ -68,9 +72,8 @@ public class MenuAnimation {
         patTrans.setCycleCount(Animation.INDEFINITE);
         patTrans.play();
 
-      
-        //Circulo dois Branco
 
+        //Circulo dois Branco
         whiteCircle.setFill(Color.WHITE);
         whiteCircle.setRadius(6);
 
@@ -81,7 +84,7 @@ public class MenuAnimation {
         fadeTrans3.setFromValue(1.0f);
         fadeTrans3.setToValue(0.3f);
         fadeTrans3.setCycleCount(2);
-        // ft3.setAutoReverse(true);
+
 
         TranslateTransition transition2 = new TranslateTransition(SecondsThree);
         transition2.setDuration(Duration.seconds(1));

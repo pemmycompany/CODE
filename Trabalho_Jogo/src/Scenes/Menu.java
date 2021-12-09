@@ -80,7 +80,7 @@ public class Menu {
         btnQuit.setPrefWidth(100);
 
         // Adiciona todos os controles ao Grid
-        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit, menuAnimation.btnEgg, menuAnimation.circle, menuAnimation.circle3);
+        gridMenu.getChildren().addAll(title, btnStart, btnAbout, btnTutorial, btnQuit, menuAnimation.btnEgg, menuAnimation.blackCircle, menuAnimation.whiteCircle);
 
         String sound = "Assets/Music/Menu.wav";
         Media MenuMusic = new Media(Paths.get(sound).toUri().toString());
@@ -99,10 +99,10 @@ public class Menu {
         pause.setOnFinished(event -> {
             gridMenu.setStyle("-fx-base: rgb(" + R + "," + G + "," + B + ")");
             if (!finishedFirst)
-                finishedFirst = changeColor(firstColor);// rgb(76, 58, 142)
+                finishedFirst = changeColor(firstColor);
 
             if (finishedFirst) {
-                var completed = changeColor(secondColor);// rgb(125, 62, 107)
+                var completed = changeColor(secondColor);
                 if (completed)
                     finishedFirst = false;
             }

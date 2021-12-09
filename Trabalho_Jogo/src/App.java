@@ -1,38 +1,16 @@
+import Scenes.About;
+import Scenes.CreateUser;
+import Scenes.Easter_egg;
 import Scenes.Game;
 import Scenes.Menu;
-import javafx.animation.PauseTransition;
+import Scenes.MenuAnimation;
+import Scenes.ScoreBoard;
+import Scenes.SelectPlayer;
+import Scenes.Tutorial;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.text.Text;
-import javafx.geometry.Pos;
-
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import Components.Option;
-import Components.Player;
-import Components.Question;
-import Components.QuestionScene;
-import Components.User;
-import Scenes.*;
 
 public class App extends Application {
 
@@ -82,10 +60,7 @@ public class App extends Application {
     void setButtons(Stage primaryStage) {
         menu.btnStart.setOnAction(e -> {
 
-            /* game.player_1 = new Player("VanishMan", new String[] { "" }, true, 100f);
-            game.player_2 = new Player("DeterGente", new String[] { "" }, true, 100f);
-            game.ResetGame();
-            game.SetGame(); */
+           
 
             primaryStage.setScene(createUser.scene);
         });

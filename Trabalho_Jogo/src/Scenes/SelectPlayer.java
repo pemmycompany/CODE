@@ -61,14 +61,17 @@ public class SelectPlayer {
 
                 Players.add(new Player("VanishMan", new String[] { "Invisibilidade", "Super Visao", "Lentidao" }, true,
                                 100.0f));
-                Players.add(new Player("DeterGente & 'P'", new String[] { "Detêm qualquer gente",
+
+                Players.add(new Player("DeterGente & 'P'", new String[] { "Detem qualquer gente",
                                 "Perde mais vida ao errar consecutivamente ", "Pode retirar uma alternativa" }, true,
                                 100.0f));
+
                 Players.add(new Player("Lysoformador",
                                 new String[] { "Agilidade", "Ganha 2 de vida a cada acerto",
                                                 "perde 2.5 de vida a cada erro" },
                                 true,
                                 100.0f));
+
                 Players.add(new Player("MrMusculoso", new String[] { "Super Forte", "Remove toda a Gordura", "Barato" },
                                 true, 100.0f));
                 Players.add(new Player("PinhoSolar",
@@ -246,7 +249,7 @@ public class SelectPlayer {
                 var hoverOn = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                /* setHoveredPlayer(((VBox) e.getTarget())); */
+                                
                                 setHoveredPlayer(((ImageView) e.getTarget()));
                         }
                 };
@@ -254,15 +257,14 @@ public class SelectPlayer {
                 var hoverOut = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                /* resetHoveredPlayer(((VBox) e.getTarget()).getId()); */
-                                /* resetHoveredPlayer(((ImageView) e.getTarget()).getId()); */
+                                
                         }
                 };
 
                 var onClick = new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent e) {
-                                /* setSelectedPlayer(((VBox) e.getTarget())); */
+                                
                                 setSelectedPlayer(((ImageView) e.getTarget()));
                         }
                 };
@@ -399,3 +401,4 @@ public class SelectPlayer {
         }
 }
 
+// Linha não encontrada
